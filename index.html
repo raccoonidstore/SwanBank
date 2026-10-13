@@ -1,0 +1,2858 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generasi Pintar Indonesia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{
+  --ink:#141414;
+  --yellow:#ffd93d;
+  --red:#ff4b4b;
+  --blue:#3d9bff;
+  --green:#31d17a;
+  --purple:#a56bff;
+  --orange:#ff9f43;
+  --pink:#ff8fc8;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Fredoka',system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background-color:#ffe66d;
+  background-image:
+    radial-gradient(rgba(0,0,0,.09) 2px, transparent 3px),
+    radial-gradient(rgba(0,0,0,.09) 2px, transparent 3px);
+  background-size:26px 26px;
+  background-position:0 0, 13px 13px;
+  min-height:100vh;
+  padding:14px 14px 100px;
+  overflow-x:hidden;
+}
+.app{max-width:780px;margin:0 auto;position:relative;z-index:1}
+.deco{position:fixed;font-family:'Bangers',cursive;font-size:1.4rem;pointer-events:none;
+  opacity:.35;z-index:0;user-select:none}
+.deco.d1{top:8px;left:-6px;transform:rotate(-18deg);color:var(--red)}
+.deco.d2{top:40%;right:-8px;transform:rotate(15deg);color:var(--blue)}
+.deco.d3{bottom:90px;left:6px;transform:rotate(8deg);color:var(--purple)}
+.screen{display:none;animation:pop .35s ease}
+.screen.active{display:block}
+@keyframes pop{
+  0%{opacity:0;transform:scale(.94) translateY(10px)}
+  100%{opacity:1;transform:scale(1) translateY(0)}
+}
+.auth-body{padding-top:12px}
+body.locked-nav{padding-bottom:20px}
+.auth-card{max-width:440px;margin:0 auto}
+.welcome-card{
+  background:linear-gradient(135deg,#fff9d6,#ffe8a3);
+  border:5px solid var(--ink);
+  border-radius:18px;
+  box-shadow:8px 8px 0 var(--ink);
+  padding:16px 18px;
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden;
+}
+.welcome-card::before{
+  content:'';
+  position:absolute;
+  top:-30px;right:-30px;
+  width:100px;height:100px;
+  background:var(--yellow);
+  border-radius:50%;
+  opacity:.45;
+}
+.welcome-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:42px;height:42px;
+  background:var(--green);
+  color:#fff;
+  border:3px solid var(--ink);
+  border-radius:12px;
+  font-size:1.2rem;
+  box-shadow:3px 3px 0 var(--ink);
+  margin-bottom:10px;
+  position:relative;
+  z-index:1;
+}
+.welcome-title{
+  font-family:'Bangers',cursive;
+  font-size:1.25rem;
+  letter-spacing:1.5px;
+  margin:0 0 6px;
+  color:var(--ink);
+  position:relative;
+  z-index:1;
+}
+.welcome-text{
+  font-size:.85rem;
+  font-weight:500;
+  line-height:1.55;
+  margin:0;
+  position:relative;
+  z-index:1;
+}
+.welcome-text b{color:var(--red)}
+.welcome-sign{
+  display:inline-block;
+  margin-top:8px;
+  font-family:'Bangers',cursive;
+  letter-spacing:1px;
+  font-size:.9rem;
+  background:var(--ink);
+  color:var(--yellow);
+  padding:2px 10px;
+  border-radius:8px;
+  position:relative;
+  z-index:1;
+}
+.auth-logo{text-align:center;margin-bottom:18px}
+.auth-logo-icon{
+  width:84px;height:84px;margin:0 auto 10px;border-radius:50%;
+  background:var(--yellow);border:5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.4rem;color:var(--ink);transform:rotate(-6deg);
+  animation:logoFloat 3s ease infinite;
+}
+@keyframes logoFloat{
+  0%,100%{transform:rotate(-6deg) translateY(0)}
+  50%{transform:rotate(-6deg) translateY(-6px)}
+}
+.auth-title{
+  font-family:'Bangers',cursive;font-size:clamp(1.8rem,8vw,2.6rem);
+  letter-spacing:2px;line-height:.95;margin:0 0 6px;color:#fff;
+  -webkit-text-stroke:2.5px var(--ink);text-shadow:5px 5px 0 var(--red);
+}
+.auth-title span{color:var(--yellow);text-shadow:5px 5px 0 var(--blue)}
+.auth-sub{font-size:.85rem;font-weight:600;opacity:.75;margin:0}
+.auth-tabs{
+  display:flex;gap:8px;margin-bottom:14px;background:#fff;
+  border:4px solid var(--ink);border-radius:14px;padding:5px;
+  box-shadow:5px 5px 0 var(--ink);
+}
+.auth-tab{
+  flex:1;font-family:'Bangers',cursive;letter-spacing:1.5px;font-size:1rem;
+  padding:9px 4px;border:3px solid transparent;border-radius:10px;
+  background:transparent;color:#888;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.auth-tab.active{background:var(--yellow);color:var(--ink);border-color:var(--ink)}
+.field{margin-bottom:12px}
+.field label{display:block;font-weight:700;font-size:.85rem;margin-bottom:5px;letter-spacing:.5px}
+.field label i{color:var(--blue);margin-right:4px}
+.field input,
+.field select{
+  width:100%;font-family:'Fredoka',sans-serif;font-size:1rem;font-weight:600;
+  padding:11px 14px;border:3px solid var(--ink);border-radius:12px;
+  background:#fff;color:var(--ink);box-shadow:3px 3px 0 var(--ink);
+  outline:none;transition:transform .07s, box-shadow .07s;
+}
+.field input:focus,
+.field select:focus{
+  box-shadow:4px 4px 0 var(--blue), 0 0 0 3px rgba(61,155,255,.25);
+  transform:translate(-1px,-1px);
+}
+.field input.error,
+.field select.error{border-color:var(--red);box-shadow:3px 3px 0 var(--red)}
+.field-hint{
+  font-size:.72rem;font-weight:600;color:var(--red);margin-top:4px;
+  display:none;align-items:center;gap:4px;
+}
+.field-hint.show{display:flex}
+.field-hint i{font-size:.85em}
+.auth-btn{margin-top:6px}
+.auth-footer{text-align:center;font-size:.78rem;font-weight:600;opacity:.7;margin-top:14px}
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;background:#fff;
+  border-top:5px solid var(--ink);display:flex;justify-content:space-around;
+  padding:8px 4px 10px;z-index:60;box-shadow:0 -6px 0 rgba(0,0,0,.08);
+}
+.bottom-nav.hidden{display:none}
+.nav-btn{
+  background:transparent;border:3px solid transparent;border-radius:14px;
+  flex:1;max-width:120px;padding:6px 4px;font-family:'Fredoka',sans-serif;
+  font-weight:700;color:#888;cursor:pointer;display:flex;flex-direction:column;
+  align-items:center;gap:2px;font-size:.7rem;transition:all .15s;
+}
+.nav-btn i{font-size:1.3rem}
+.nav-btn.active{
+  color:var(--ink);background:var(--yellow);border-color:var(--ink);
+  box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px);
+}
+.nav-btn:active{transform:translate(2px,2px)}
+.top-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+.header-title{flex:1;min-width:0}
+.header-title h1{
+  font-family:'Bangers',cursive;font-size:clamp(1.5rem,6vw,2.2rem);
+  letter-spacing:2px;line-height:.95;margin:0;color:#fff;
+  -webkit-text-stroke:2px var(--ink);text-shadow:4px 4px 0 var(--red);
+}
+.header-title h1 span{color:var(--yellow);text-shadow:4px 4px 0 var(--blue)}
+.header-greet{
+  font-size:.78rem;font-weight:600;margin-top:4px;background:#fff;
+  border:2px solid var(--ink);border-radius:8px;padding:2px 8px;display:inline-block;
+}
+.heart-counter{
+  background:#fff;border:4px solid var(--ink);border-radius:14px;
+  padding:6px 12px;box-shadow:4px 4px 0 var(--ink);display:flex;
+  flex-direction:column;align-items:center;gap:2px;min-width:88px;flex:none;
+}
+.heart-row{
+  display:flex;align-items:center;gap:6px;font-family:'Bangers',cursive;
+  font-size:1.3rem;letter-spacing:1px;
+}
+.heart-row i{color:var(--red);font-size:1.2rem;animation:heartbeat 1.4s ease infinite}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1)}
+  30%{transform:scale(1.15)}
+  50%{transform:scale(1)}
+  70%{transform:scale(1.1)}
+}
+.heart-timer{font-size:.62rem;font-weight:700;color:#888;white-space:nowrap;min-height:.8em}
+.billboard{
+  position:relative;overflow:hidden;
+  background:linear-gradient(90deg,var(--blue),var(--purple));
+  border:4px solid var(--ink);border-radius:14px;
+  box-shadow:5px 5px 0 var(--ink);padding:10px 0;margin-bottom:18px;
+}
+.billboard::before,
+.billboard::after{
+  content:'';position:absolute;top:0;bottom:0;width:22px;z-index:2;pointer-events:none;
+}
+.billboard::before{left:0;background:linear-gradient(90deg,rgba(0,0,0,.35),transparent)}
+.billboard::after{right:0;background:linear-gradient(-90deg,rgba(0,0,0,.35),transparent)}
+.billboard-inner{
+  display:inline-block;white-space:nowrap;padding-left:100%;
+  font-family:'Bangers',cursive;font-size:1.1rem;letter-spacing:2px;
+  color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.4);animation:marquee 22s linear infinite;
+}
+@keyframes marquee{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-100%)}
+}
+.panel{
+  background:#fff;border:5px solid var(--ink);border-radius:18px;
+  box-shadow:8px 8px 0 var(--ink);padding:16px;margin-bottom:18px;position:relative;
+}
+.panel-title{
+  font-family:'Bangers',cursive;letter-spacing:2px;font-size:1.2rem;
+  margin:0 0 12px;display:flex;align-items:center;gap:8px;
+}
+.panel-title::before{
+  content:'';display:inline-block;width:14px;height:14px;background:var(--red);
+  border:3px solid var(--ink);border-radius:50%;flex:none;
+}
+.checkin-sub{font-size:.85rem;margin:-4px 0 12px;opacity:.7;font-weight:500}
+.checkin-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.checkin-day{
+  background:#f2f2f2;border:3px solid var(--ink);border-radius:12px;
+  padding:6px 2px;text-align:center;opacity:.5;box-shadow:2px 2px 0 var(--ink);
+  transition:all .15s;cursor:not-allowed;
+}
+.checkin-day .cd-num{font-size:.62rem;font-weight:700;color:#666}
+.checkin-day .cd-icon{font-size:.95rem;color:var(--red);margin:3px 0}
+.checkin-day .cd-count{font-size:.6rem;font-weight:700}
+.checkin-day.today{
+  background:var(--yellow);opacity:1;cursor:pointer;
+  animation:checkinBounce 1.6s ease infinite;
+}
+.checkin-day.today .cd-num,
+.checkin-day.today .cd-count{color:var(--ink)}
+.checkin-day.done{background:var(--green);color:#fff;opacity:1}
+.checkin-day.done .cd-icon{color:#fff}
+.checkin-day.done .cd-num,
+.checkin-day.done .cd-count{color:#fff}
+@keyframes checkinBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+.ulangan-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ulangan-card{
+  border:4px solid var(--ink);border-radius:16px;background:#fff;
+  box-shadow:5px 5px 0 var(--ink);padding:14px 10px;text-align:center;
+  cursor:pointer;font-family:'Fredoka',sans-serif;color:var(--ink);
+  transition:transform .08s, box-shadow .08s;display:flex;flex-direction:column;
+  align-items:center;gap:4px;
+}
+.ulangan-card:hover{filter:brightness(1.03)}
+.ulangan-card:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.ulangan-card .ul-icon{
+  width:46px;height:46px;border:3px solid var(--ink);border-radius:12px;
+  background:var(--blue);color:#fff;display:flex;align-items:center;
+  justify-content:center;font-size:1.3rem;margin-bottom:4px;
+}
+.ulangan-card[data-kelas="4-6"] .ul-icon{background:var(--purple)}
+.ulangan-card.bi .ul-icon{background:var(--green)}
+.ulangan-card.bi[data-kelas="4-6"] .ul-icon{background:var(--orange)}
+.ulangan-card.eng .ul-icon{background:var(--pink)}
+.ulangan-card.eng[data-kelas="4-6"] .ul-icon{background:var(--red)}
+.ulangan-card .ul-title{
+  font-weight:700;font-size:1rem;font-family:'Bangers',cursive;letter-spacing:1px;
+}
+.ulangan-card .ul-desc{font-size:.72rem;opacity:.65}
+.btn{
+  font-family:'Bangers',cursive;letter-spacing:1.5px;font-size:1.25rem;
+  border:4px solid var(--ink);border-radius:14px;padding:10px 18px;
+  background:var(--yellow);color:var(--ink);box-shadow:5px 5px 0 var(--ink);
+  cursor:pointer;transition:transform .07s, box-shadow .07s, filter .15s;
+  display:inline-flex;align-items:center;gap:8px;justify-content:center;
+}
+.btn i{font-size:1em}
+.btn:hover{filter:brightness(1.05)}
+.btn:active{transform:translate(4px,4px);box-shadow:1px 1px 0 var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.5)}
+.btn-green{background:var(--green);color:#fff}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-big{display:flex;width:100%;font-size:1.5rem;padding:14px;margin-top:4px}
+.level-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.level-btn{font-size:1.05rem;padding:12px 6px;background:#fff}
+.level-btn[data-level="mudah"].sel{background:var(--green);color:#fff}
+.level-btn[data-level="normal"].sel{background:var(--blue);color:#fff}
+.level-btn[data-level="sulit"].sel{background:var(--red);color:#fff}
+.level-btn.sel{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.mapel-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mapel-btn{font-size:.9rem;padding:11px 4px;background:#fff;letter-spacing:1px}
+.mapel-btn.sel{background:var(--yellow);transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:600px){.type-grid{grid-template-columns:repeat(3,1fr)}}
+.type-card{
+  border:4px solid var(--ink);border-radius:16px;background:#fff;
+  box-shadow:5px 5px 0 var(--ink);padding:14px 8px;text-align:center;
+  cursor:pointer;transition:transform .08s, box-shadow .08s;
+  font-family:'Fredoka',sans-serif;color:var(--ink);
+}
+.type-card .icon-wrap{
+  width:48px;height:48px;margin:0 auto 6px;display:flex;
+  align-items:center;justify-content:center;border:3px solid var(--ink);
+  border-radius:12px;background:var(--c,#ffd93d);transition:transform .15s;
+}
+.type-card .icon-wrap i{font-size:1.4rem;color:var(--ink)}
+.type-card .tname{font-weight:700;font-size:.95rem;display:block;margin-top:2px}
+.type-card .tdesc{font-size:.72rem;opacity:.65;display:block}
+.type-card.sel{
+  background:var(--c,#ffd93d);transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);
+}
+.type-card.sel .icon-wrap{background:#fff;transform:rotate(-8deg) scale(1.05)}
+.note{text-align:center;font-size:.82rem;font-weight:600;opacity:.75;margin:14px 0 0}
+.profile-hero{text-align:center;padding:22px 16px}
+.profile-avatar{
+  width:96px;height:96px;border-radius:50%;background:var(--yellow);
+  border:5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:2.6rem;
+  margin:0 auto 12px;
+}
+.profile-name{font-family:'Bangers',cursive;font-size:1.9rem;letter-spacing:2px;margin:0 0 6px}
+.profile-school{
+  font-size:.88rem;font-weight:600;margin:0 0 4px;display:inline-flex;
+  align-items:center;gap:6px;background:#fff9d6;border:2px solid var(--ink);
+  border-radius:10px;padding:3px 12px;
+}
+.profile-kelas{
+  display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;
+  border:2px solid var(--ink);border-radius:999px;padding:3px 12px;
+  font-size:.78rem;font-weight:700;margin-top:6px;
+}
+.profile-meta{
+  display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:8px;
+}
+.profile-actions{
+  margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+}
+.profile-actions .btn{font-size:1rem;padding:9px 16px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat-card{
+  border:3px solid var(--ink);border-radius:14px;padding:10px;
+  background:#fffdf2;text-align:center;box-shadow:4px 4px 0 var(--ink);
+}
+.stat-card .stat-icon{font-size:1.2rem;color:var(--blue);margin-bottom:4px}
+.stat-card .stat-value{
+  font-family:'Bangers',cursive;font-size:1.6rem;letter-spacing:1px;line-height:1;
+}
+.stat-card .stat-label{font-size:.7rem;font-weight:600;opacity:.7;margin-top:4px}
+.about-text{font-size:.88rem;line-height:1.65;margin:0}
+.about-text p{margin:0 0 10px}
+.about-text p:last-child{margin-bottom:0}
+.about-text b{color:var(--red)}
+.dev-quote{
+  font-size:.9rem;
+  line-height:1.7;
+  margin:0;
+  font-style:italic;
+  padding:12px 14px;
+  background:#fff9d6;
+  border-left:5px solid var(--yellow);
+  border-radius:8px;
+}
+.dev-quote b{color:var(--red);font-style:normal}
+.dev-card{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  background:#fffdf2;
+  border:3px solid var(--ink);
+  border-radius:14px;
+  box-shadow:4px 4px 0 var(--ink);
+  margin-bottom:10px;
+  text-decoration:none;
+  color:var(--ink);
+  transition:transform .08s, box-shadow .08s;
+}
+.dev-card:hover{filter:brightness(1.02)}
+.dev-card:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.dev-card:last-child{margin-bottom:0}
+.dev-icon{
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  border:3px solid var(--ink);
+  border-radius:12px;
+  font-size:1.3rem;
+  color:#fff;
+  flex:none;
+}
+.dev-icon.ig{
+  background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+}
+.dev-icon.gm{background:var(--red)}
+.dev-info{flex:1;min-width:0}
+.dev-info .dev-label{
+  font-family:'Bangers',cursive;
+  letter-spacing:1px;
+  font-size:.85rem;
+  opacity:.7;
+}
+.dev-info .dev-value{
+  font-weight:700;
+  font-size:.95rem;
+  word-break:break-all;
+}
+.dev-arrow{color:#999;font-size:.9rem}
+.close-btn{
+  position:fixed;bottom:18px;left:18px;width:52px;height:52px;
+  border-radius:50%;background:var(--red);color:#fff;border:4px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink);font-size:1.4rem;display:flex;
+  align-items:center;justify-content:center;cursor:pointer;z-index:70;
+  transition:transform .08s, box-shadow .08s, filter .15s;
+}
+.close-btn:hover{filter:brightness(1.1);transform:rotate(90deg)}
+.close-btn:active{transform:translate(3px,3px) rotate(90deg);box-shadow:1px 1px 0 var(--ink)}
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;
+  align-items:center;justify-content:center;z-index:100;padding:20px;
+}
+.modal-overlay.show{display:flex;animation:pop .25s ease}
+.modal-box{
+  background:#fff;border:5px solid var(--ink);border-radius:20px;
+  box-shadow:8px 8px 0 var(--ink);padding:24px 20px;max-width:380px;
+  width:100%;text-align:center;
+}
+.modal-icon{font-size:2.6rem;color:var(--red);margin-bottom:8px}
+.modal-title{font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;margin:0 0 6px}
+.modal-text{font-size:.95rem;font-weight:500;margin:0 0 20px;line-height:1.5}
+.modal-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.modal-actions .btn{font-size:1rem;padding:9px 16px}
+.toast{
+  position:fixed;bottom:90px;left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;border:3px solid var(--yellow);
+  border-radius:14px;padding:10px 18px;font-weight:700;font-size:.9rem;
+  z-index:200;opacity:0;pointer-events:none;
+  transition:opacity .25s, transform .25s;
+  box-shadow:5px 5px 0 rgba(0,0,0,.3);max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hud{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+.hud-item{
+  background:#fff;border:3px solid var(--ink);border-radius:999px;
+  padding:5px 14px;font-weight:700;font-size:.85rem;box-shadow:3px 3px 0 var(--ink);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.hud-item.badge{background:var(--yellow)}
+.progress{
+  height:18px;background:#fff;border:4px solid var(--ink);border-radius:999px;
+  overflow:hidden;margin-bottom:14px;box-shadow:3px 3px 0 var(--ink);
+}
+.progress-fill{
+  height:100%;width:10%;border-radius:999px;
+  background:linear-gradient(90deg,var(--red),var(--yellow),var(--green));
+  transition:width .35s cubic-bezier(.34,1.56,.64,1);
+}
+.question-panel{
+  min-height:200px;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;gap:16px;text-align:center;
+  background:#fffdf2;
+}
+.bubble{
+  position:relative;background:#fff9d6;border:4px solid var(--ink);
+  border-radius:18px;padding:14px 18px;font-weight:600;font-size:1rem;
+  line-height:1.55;box-shadow:5px 5px 0 var(--ink);text-align:left;
+  max-width:100%;
+}
+.bubble::after{
+  content:'';position:absolute;bottom:-18px;left:34px;width:0;height:0;
+  border-left:14px solid transparent;border-right:0 solid transparent;
+  border-top:18px solid var(--ink);
+}
+.bubble::before{
+  content:'';position:absolute;bottom:-12px;left:37px;z-index:2;width:0;height:0;
+  border-left:11px solid transparent;border-right:0 solid transparent;
+  border-top:14px solid #fff9d6;
+}
+.bubble .instr{
+  font-family:'Bangers',cursive;letter-spacing:1.5px;font-size:1.1rem;color:var(--blue);
+}
+.bubble b{color:var(--red);font-weight:700}
+.mathline{
+  font-family:'Bangers',cursive;font-size:clamp(2rem,9vw,3rem);
+  letter-spacing:3px;text-align:center;color:var(--ink);
+}
+.vcalc{
+  display:flex;flex-direction:column;align-items:flex-end;
+  font-family:'Courier New',Courier,monospace;font-weight:700;
+  font-size:clamp(1.5rem,7vw,2.1rem);line-height:1;background:#fff;
+  border:4px solid var(--ink);border-radius:16px;padding:16px 20px;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.vcalc.shake{animation:shake .35s}
+.vrow{display:flex;align-items:center;justify-content:flex-end}
+.vcell{
+  width:1.25em;height:1.55em;display:flex;align-items:center;
+  justify-content:center;flex:none;
+}
+.vcell.op{width:1.5em;color:var(--ink)}
+.vcell.digit{color:var(--ink)}
+.vline{width:100%;height:5px;background:var(--ink);border-radius:3px;margin:5px 0}
+.box{
+  width:1.05em;height:1.35em;border:2px dashed #b3b3b3;border-radius:6px;
+  background:rgba(0,0,0,.025);display:inline-flex;align-items:center;
+  justify-content:center;cursor:pointer;font-size:.9em;color:var(--red);
+  transition:all .15s;user-select:none;font-family:'Courier New',Courier,monospace;
+  font-weight:700;
+}
+.box:hover{border-color:#888;background:rgba(0,0,0,.06)}
+.box.active{
+  border-style:solid;border-color:var(--blue);background:#e8f3ff;
+  animation:pulse 1.1s ease infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 3px rgba(61,155,255,.25)}
+  50%{box-shadow:0 0 0 6px rgba(61,155,255,.12)}
+}
+.box.filled{border-style:solid;border-color:var(--ink);background:#fff;color:var(--red)}
+.box.scratch.filled{color:var(--blue);border-color:#7bb8ff;background:#f0f8ff}
+.options-box{
+  display:none;grid-template-columns:1fr;gap:10px;
+  max-width:480px;margin:0 auto 14px;
+}
+.options-box.show{display:grid}
+@media(min-width:520px){.options-box{grid-template-columns:1fr 1fr}}
+.option-btn{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:.95rem;
+  padding:12px 14px;border:4px solid var(--ink);border-radius:14px;
+  background:#fff;box-shadow:0 5px 0 var(--ink);cursor:pointer;
+  text-align:left;color:var(--ink);display:flex;align-items:center;
+  gap:10px;transition:transform .05s, box-shadow .05s;line-height:1.3;
+}
+.option-btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.option-btn .opt-letter{
+  font-family:'Bangers',cursive;font-size:1.3rem;width:32px;height:32px;
+  border:3px solid var(--ink);border-radius:50%;display:flex;
+  align-items:center;justify-content:center;flex:none;background:var(--yellow);
+}
+.option-btn.correct{background:var(--green);color:#fff}
+.option-btn.correct .opt-letter{background:#fff;color:var(--green)}
+.option-btn.wrong{background:var(--red);color:#fff}
+.option-btn.wrong .opt-letter{background:#fff;color:var(--red)}
+.options-box.disabled .option-btn:not(.correct):not(.wrong){opacity:.5}
+.answer-box{
+  max-width:340px;margin:0 auto 14px;background:#fff;border:5px solid var(--ink);
+  border-radius:16px;padding:8px 18px;text-align:right;
+  font-family:'Bangers',cursive;font-size:2.4rem;letter-spacing:3px;
+  box-shadow:6px 6px 0 var(--ink);min-height:70px;display:flex;
+  align-items:center;justify-content:flex-end;overflow:hidden;
+}
+.answer-box.shake{animation:shake .35s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-9px)}
+  75%{transform:translateX(9px)}
+}
+.keypad{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  max-width:340px;margin:0 auto;
+}
+.keypad.disabled{pointer-events:none;opacity:.45;filter:grayscale(.4)}
+.key{
+  font-family:'Bangers',cursive;font-size:1.7rem;letter-spacing:1px;
+  padding:12px 0;border:4px solid var(--ink);border-radius:14px;background:#fff;
+  box-shadow:0 5px 0 var(--ink);cursor:pointer;color:var(--ink);
+  transition:transform .05s, box-shadow .05s;
+  display:flex;align-items:center;justify-content:center;
+}
+.key:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.key.del{background:var(--red);color:#fff}
+.key.ok{background:var(--green);color:#fff;font-size:1.35rem;gap:6px}
+.feedback{min-height:70px;text-align:center;margin-top:16px}
+.fb-pow{
+  font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;
+  display:inline-flex;align-items:center;gap:10px;padding:4px 22px;
+  border:4px solid var(--ink);border-radius:999px;box-shadow:5px 5px 0 var(--ink);
+  transform:rotate(-2deg);animation:powIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes powIn{0%{transform:rotate(-2deg) scale(.4)}100%{transform:rotate(-2deg) scale(1)}}
+.fb-ok{background:var(--green);color:#fff}
+.fb-no{background:var(--red);color:#fff}
+.fb-note{margin-top:10px;font-weight:600;font-size:.9rem}
+.fb-note b{background:var(--yellow);border:2px solid var(--ink);border-radius:8px;padding:1px 8px}
+.next-btn{margin-top:14px}
+.result-panel{text-align:center;padding:26px 18px}
+.stars{font-size:3.2rem;letter-spacing:6px;line-height:1.1;animation:powIn .5s cubic-bezier(.34,1.56,.64,1)}
+.stars .off{opacity:.2;filter:grayscale(1)}
+.result-title{
+  font-family:'Bangers',cursive;font-size:2.4rem;letter-spacing:3px;margin:8px 0;
+  color:#fff;-webkit-text-stroke:3px var(--ink);text-shadow:5px 5px 0 var(--red);
+}
+.result-score{font-size:1.1rem;font-weight:600;margin:6px 0}
+.result-score b{
+  font-family:'Bangers',cursive;font-size:1.9rem;letter-spacing:2px;
+  background:var(--yellow);border:3px solid var(--ink);border-radius:10px;
+  padding:0 12px;display:inline-block;
+}
+.result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.result-msg{font-weight:600;font-size:.95rem;opacity:.85}
+</style>
+</head>
+<body>
+
+<div class="deco d1">POW!</div>
+<div class="deco d2">BAM!</div>
+<div class="deco d3">ZAP!</div>
+
+<div class="app">
+
+  <section id="screen-login" class="screen active">
+    <div class="auth-body">
+      <div class="auth-card">
+
+        <div class="welcome-card">
+          <div class="welcome-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+          <h3 class="welcome-title">SELAMAT DATANG!</h3>
+          <p class="welcome-text">
+            Kepada <b>Orang Tua</b> &amp; <b>Guru</b> yang berkunjung pada situs pembelajaran digital kita yang bernama <b>Generasi Pintar Indonesia</b>. Mari bersama membangun generasi cerdas dan berkarakter.
+          </p>
+          <span class="welcome-sign">- @TaaDeveloper</span>
+        </div>
+
+        <div class="auth-logo">
+          <div class="auth-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h1 class="auth-title">GENERASI PINTAR<br><span>INDONESIA</span></h1>
+          <p class="auth-sub">Belajar seru untuk siswa SD!</p>
+        </div>
+
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-mode="login">
+            <i class="fa-solid fa-right-to-bracket"></i> MASUK
+          </button>
+          <button class="auth-tab" data-mode="daftar">
+            <i class="fa-solid fa-user-plus"></i> DAFTAR
+          </button>
+        </div>
+
+        <div class="panel">
+          <div id="formLogin">
+            <h2 class="panel-title">MASUK AKUN</h2>
+            <div class="field">
+              <label><i class="fa-solid fa-user"></i> Nama Siswa/Siswi</label>
+              <input type="text" id="loginNama" placeholder="Contoh: Adi" autocomplete="off">
+              <div class="field-hint" id="loginHint"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+            </div>
+            <button class="btn btn-big btn-blue auth-btn" id="loginBtn">
+              <i class="fa-solid fa-right-to-bracket"></i> MASUK
+            </button>
+            <p class="auth-footer">Belum punya akun? Klik tab <b>Daftar</b> di atas.</p>
+          </div>
+
+          <div id="formDaftar" style="display:none">
+            <h2 class="panel-title">DAFTAR AKUN BARU</h2>
+            <div class="field">
+              <label><i class="fa-solid fa-user"></i> Nama Siswa/Siswi</label>
+              <input type="text" id="daftarNama" placeholder="Contoh: Adi" autocomplete="off">
+              <div class="field-hint" id="daftarNamaHint"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+            </div>
+            <div class="field">
+              <label><i class="fa-solid fa-graduation-cap"></i> Kelas</label>
+              <select id="daftarKelas">
+                <option value="">-- Pilih Kelas --</option>
+                <option value="1">Kelas 1</option>
+                <option value="2">Kelas 2</option>
+                <option value="3">Kelas 3</option>
+                <option value="4">Kelas 4</option>
+                <option value="5">Kelas 5</option>
+                <option value="6">Kelas 6</option>
+              </select>
+              <div class="field-hint" id="daftarKelasHint"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+            </div>
+            <div class="field">
+              <label><i class="fa-solid fa-school"></i> Nama Sekolah Dasar</label>
+              <input type="text" id="daftarSekolah" placeholder="Contoh: SD Negeri 1 Jakarta" autocomplete="off">
+              <div class="field-hint" id="daftarSekolahHint"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+            </div>
+            <button class="btn btn-big btn-green auth-btn" id="daftarBtn">
+              <i class="fa-solid fa-user-plus"></i> DAFTAR SEKARANG
+            </button>
+            <p class="auth-footer">Data disimpan aman di perangkatmu.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-home" class="screen">
+    <div class="top-header">
+      <div class="header-title">
+        <h1>GENERASI PINTAR<br><span>INDONESIA</span></h1>
+        <span class="header-greet" id="homeGreet">Halo, Siswa! 👋</span>
+      </div>
+      <div class="heart-counter">
+        <div class="heart-row">
+          <i class="fa-solid fa-heart"></i>
+          <span id="heartCount">10</span>
+        </div>
+        <div class="heart-timer" id="heartTimer"></div>
+      </div>
+    </div>
+
+    <div class="billboard">
+      <div class="billboard-inner">
+        🎉 SELAMAT DATANG DI GENERASI PINTAR INDONESIA! 🚀 AYO BELAJAR MATEMATIKA, BAHASA INDONESIA, DAN BAHASA INGGRIS DENGAN SERU! ✨ SEMANGAT, KAMU PASTI BISA! 💪
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">DAILY CHECK-IN</h2>
+      <p class="checkin-sub">Check-in tiap hari untuk dapat nyawa lebih banyak!</p>
+      <div class="checkin-grid" id="checkinGrid"></div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">ULANGAN HARIAN MATEMATIKA</h2>
+      <div class="ulangan-grid">
+        <button class="ulangan-card" data-kelas="1-3" data-mapel="mtk">
+          <div class="ul-icon"><i class="fa-solid fa-pencil"></i></div>
+          <div class="ul-title">KELAS 1-3</div>
+          <div class="ul-desc">30 soal campuran</div>
+        </button>
+        <button class="ulangan-card" data-kelas="4-6" data-mapel="mtk">
+          <div class="ul-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="ul-title">KELAS 4-6</div>
+          <div class="ul-desc">30 soal campuran</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">ULANGAN HARIAN BAHASA INDONESIA</h2>
+      <div class="ulangan-grid">
+        <button class="ulangan-card bi" data-kelas="1-3" data-mapel="bi">
+          <div class="ul-icon"><i class="fa-solid fa-book"></i></div>
+          <div class="ul-title">KELAS 1-3</div>
+          <div class="ul-desc">30 soal campuran</div>
+        </button>
+        <button class="ulangan-card bi" data-kelas="4-6" data-mapel="bi">
+          <div class="ul-icon"><i class="fa-solid fa-feather"></i></div>
+          <div class="ul-title">KELAS 4-6</div>
+          <div class="ul-desc">30 soal campuran</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">ULANGAN HARIAN BAHASA INGGRIS</h2>
+      <div class="ulangan-grid">
+        <button class="ulangan-card eng" data-kelas="1-3" data-mapel="eng">
+          <div class="ul-icon"><i class="fa-solid fa-language"></i></div>
+          <div class="ul-title">KELAS 1-3</div>
+          <div class="ul-desc">30 soal campuran</div>
+        </button>
+        <button class="ulangan-card eng" data-kelas="4-6" data-mapel="eng">
+          <div class="ul-icon"><i class="fa-solid fa-globe"></i></div>
+          <div class="ul-title">KELAS 4-6</div>
+          <div class="ul-desc">30 soal campuran</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">LATIHAN BEBAS</h2>
+      <p style="margin:0 0 12px;font-size:.88rem;opacity:.8;">Pilih mapel, level, dan jenis soal sendiri di tab Soal.</p>
+      <button class="btn btn-blue" style="width:100%" id="goSoalBtn">
+        <i class="fa-solid fa-book"></i> BUKA MENU LATIHAN
+      </button>
+    </div>
+  </section>
+
+  <section id="screen-soal" class="screen">
+    <div class="hero" style="text-align:center;margin:6px 0 18px">
+      <div class="hero-badge" style="display:inline-block;font-family:'Bangers',cursive;letter-spacing:2px;background:var(--blue);color:#fff;border:3px solid var(--ink);border-radius:999px;padding:3px 16px;font-size:.9rem;box-shadow:3px 3px 0 var(--ink);transform:rotate(-2deg);margin-bottom:8px;">LATIHAN BEBAS</div>
+      <h1 style="font-family:'Bangers',cursive;font-size:clamp(2rem,9vw,3rem);line-height:.95;letter-spacing:2px;margin:8px 0 6px;color:#fff;-webkit-text-stroke:3px var(--ink);text-shadow:5px 5px 0 var(--red);">PILIH <span style="color:var(--yellow);text-shadow:5px 5px 0 var(--blue)">SOAL</span></h1>
+      <p class="tagline" style="font-weight:600;font-size:.9rem;margin:0;display:inline-block;background:#fff;border:3px solid var(--ink);border-radius:12px;padding:5px 12px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-1deg);">
+        <i class="fa-solid fa-bolt"></i> Tentukan mapel, level & jenisnya! <i class="fa-solid fa-bolt"></i>
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">PILIH MAPEL</h2>
+      <div class="mapel-row">
+        <button class="btn mapel-btn sel" data-mapel="mtk"><i class="fa-solid fa-calculator"></i> MTK</button>
+        <button class="btn mapel-btn" data-mapel="bi"><i class="fa-solid fa-book"></i> B. INDO</button>
+        <button class="btn mapel-btn" data-mapel="eng"><i class="fa-solid fa-language"></i> B. INGGRIS</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">PILIH LEVEL</h2>
+      <div class="level-row" id="levelRow">
+        <button class="btn level-btn sel" data-level="mudah"><i class="fa-solid fa-face-smile"></i> MUDAH</button>
+        <button class="btn level-btn" data-level="normal"><i class="fa-solid fa-face-laugh-beam"></i> NORMAL</button>
+        <button class="btn level-btn" data-level="sulit"><i class="fa-solid fa-fire"></i> SULIT</button>
+      </div>
+      <p class="note" id="levelNote">Level MUDAH cocok untuk kelas 1 – 2 SD</p>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">PILIH JENIS SOAL</h2>
+      <div class="type-grid" id="typeGrid"></div>
+    </div>
+
+    <button class="btn btn-big btn-red" id="startBtn" disabled>
+      <i class="fa-solid fa-play"></i> MULAI LATIHAN!
+    </button>
+    <p class="note" id="sessionNote">1 sesi = 10 soal</p>
+  </section>
+
+  <section id="screen-profil" class="screen">
+    <div class="panel profile-hero">
+      <div class="profile-avatar"><i class="fa-solid fa-user"></i></div>
+      <h2 class="profile-name" id="profilNama">Siswa Hebat</h2>
+      <div class="profile-meta">
+        <span class="profile-kelas" id="profilKelas"><i class="fa-solid fa-graduation-cap"></i> Kelas -</span>
+        <span class="profile-school" id="profilSekolah"><i class="fa-solid fa-school"></i> Sekolah -</span>
+      </div>
+      <div class="profile-actions">
+        <button class="btn btn-red" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> KELUAR AKUN</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">STATISTIK BELAJAR</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-gamepad"></i></div>
+          <div class="stat-value" id="statPlayed">0</div>
+          <div class="stat-label">Sesi Bermain</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color:var(--green)"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="stat-value" id="statCorrect">0</div>
+          <div class="stat-label">Jawaban Benar</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color:var(--red)"><i class="fa-solid fa-circle-xmark"></i></div>
+          <div class="stat-value" id="statWrong">0</div>
+          <div class="stat-label">Jawaban Salah</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color:var(--purple)"><i class="fa-solid fa-percent"></i></div>
+          <div class="stat-value" id="statAcc">0%</div>
+          <div class="stat-label">Akurasi</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">TENTANG APLIKASI</h2>
+      <div class="about-text">
+        <p><b>Generasi Pintar Indonesia</b> adalah platform pembelajaran digital untuk siswa Sekolah Dasar kelas 1 sampai 6 dengan pendekatan yang seru, interaktif, dan menyenangkan. Tersedia tiga mata pelajaran utama: <b>Matematika</b>, <b>Bahasa Indonesia</b>, dan <b>Bahasa Inggris</b>.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">APA KATA DEVELOPER?</h2>
+      <p class="dev-quote">
+        "Melalui aplikasi pembelajaran sederhana ini, saya berkomitmen untuk turut membangkitkan semangat para <b>bibit unggul Indonesia</b> — agar lahir generasi yang tidak hanya <b>cerdas secara intelektual</b>, tetapi juga <b>kuat dalam karakter</b>. Saya berharap para <b>orang tua</b> dan <b>guru</b> dapat menjadikan aplikasi ini sebagai sahabat belajar anak-anak, khususnya pada jenjang Sekolah Dasar, sehingga proses belajar menjadi lebih menyenangkan, bermakna, dan berdampak."
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">INFORMASI DEVELOPER</h2>
+      <a class="dev-card" href="https://instagram.com/delphiiajaa" target="_blank" rel="noopener">
+        <div class="dev-icon ig"><i class="fa-brands fa-instagram"></i></div>
+        <div class="dev-info">
+          <div class="dev-label">INSTAGRAM</div>
+          <div class="dev-value">@delphiiajaa</div>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square dev-arrow"></i>
+      </a>
+      <a class="dev-card" href="mailto:generationsmartindonesia@gmail.com">
+        <div class="dev-icon gm"><i class="fa-solid fa-envelope"></i></div>
+        <div class="dev-info">
+          <div class="dev-label">GMAIL</div>
+          <div class="dev-value">generationsmartindonesia@gmail.com</div>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square dev-arrow"></i>
+      </a>
+    </div>
+  </section>
+
+  <section id="screen-quiz" class="screen">
+    <button class="close-btn" id="closeQuizBtn" title="Keluar sesi" aria-label="Keluar sesi">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="hud">
+      <div class="hud-item"><i class="fa-solid fa-list-ol"></i> SOAL <b id="hudProgress">1/10</b></div>
+      <div class="hud-item"><i class="fa-solid fa-star"></i> SKOR <b id="hudScore">0</b></div>
+      <div class="hud-item badge" id="hudBadge">MUDAH</div>
+    </div>
+    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="panel question-panel">
+      <div class="bubble" id="questionBubble"></div>
+      <div id="questionVisual"></div>
+    </div>
+
+    <div class="options-box" id="optionsBox"></div>
+
+    <div class="answer-box" id="answerBox">?</div>
+
+    <div class="keypad" id="keypad">
+      <button class="key" data-k="1">1</button>
+      <button class="key" data-k="2">2</button>
+      <button class="key" data-k="3">3</button>
+      <button class="key" data-k="4">4</button>
+      <button class="key" data-k="5">5</button>
+      <button class="key" data-k="6">6</button>
+      <button class="key" data-k="7">7</button>
+      <button class="key" data-k="8">8</button>
+      <button class="key" data-k="9">9</button>
+      <button class="key del" data-k="del"><i class="fa-solid fa-delete-left"></i></button>
+      <button class="key" data-k="0">0</button>
+      <button class="key ok" data-k="ok"><i class="fa-solid fa-check"></i></button>
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+  </section>
+
+  <section id="screen-result" class="screen">
+    <div class="panel result-panel">
+      <div class="stars" id="resultStars">⭐⭐⭐</div>
+      <h2 class="result-title" id="resultTitle">KEREN!</h2>
+      <p class="result-score" id="resultScoreWrap">Skor kamu: <b id="resultScore">0</b> / 10</p>
+      <p class="result-msg" id="resultMsg"></p>
+      <div class="result-actions">
+        <button class="btn btn-green" id="againBtn"><i class="fa-solid fa-rotate-right"></i> MAIN LAGI</button>
+        <button class="btn btn-blue" id="menuBtn"><i class="fa-solid fa-house"></i> MENU UTAMA</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="bottom-nav hidden" id="bottomNav">
+  <button class="nav-btn active" data-tab="home">
+    <i class="fa-solid fa-house"></i>
+    <span>Home</span>
+  </button>
+  <button class="nav-btn" data-tab="soal">
+    <i class="fa-solid fa-book"></i>
+    <span>Soal</span>
+  </button>
+  <button class="nav-btn" data-tab="profil">
+    <i class="fa-solid fa-user"></i>
+    <span>Profil</span>
+  </button>
+</nav>
+
+<div class="modal-overlay" id="exitModal">
+  <div class="modal-box">
+    <div class="modal-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <h3 class="modal-title">KELUAR SESI?</h3>
+    <p class="modal-text">Progres kamu di sesi ini akan hilang.<br>Yakin mau keluar sekarang?</p>
+    <div class="modal-actions">
+      <button class="btn btn-green" id="modalCancelBtn"><i class="fa-solid fa-xmark"></i> TIDAK</button>
+      <button class="btn btn-red" id="modalConfirmBtn"><i class="fa-solid fa-right-from-bracket"></i> YA, KELUAR</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="heartModal">
+  <div class="modal-box">
+    <div class="modal-icon" style="color:var(--red)"><i class="fa-solid fa-heart-crack"></i></div>
+    <h3 class="modal-title">HATI HABIS!</h3>
+    <p class="modal-text" id="heartModalText">Tunggu beberapa menit untuk mendapatkan hati baru, atau check-in harian untuk bonus hati.</p>
+    <div class="modal-actions">
+      <button class="btn btn-blue" id="heartModalOk"><i class="fa-solid fa-check"></i> OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logoutModal">
+  <div class="modal-box">
+    <div class="modal-icon" style="color:var(--blue)"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3 class="modal-title">KELUAR AKUN?</h3>
+    <p class="modal-text">Kamu akan kembali ke halaman masuk.<br>Data akunmu tetap tersimpan.</p>
+    <div class="modal-actions">
+      <button class="btn btn-green" id="logoutCancel"><i class="fa-solid fa-xmark"></i> TIDAK</button>
+      <button class="btn btn-red" id="logoutConfirm"><i class="fa-solid fa-check"></i> YA, KELUAR</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function mulberry32(a){
+  return function(){
+    a|=0; a=a+0x6D2B79F5|0;
+    let t=Math.imul(a^a>>>15,1|a);
+    t=t+Math.imul(t^t>>>7,61|t)^t;
+    return ((t^t>>>14)>>>0)/4294967296;
+  };
+}
+const rnd  = (r,min,max)=>Math.floor(r()*(max-min+1))+min;
+const pick = (r,arr)=>arr[Math.floor(r()*arr.length)];
+function seedFrom(str){
+  let h=2166136261;
+  for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}
+  return h>>>0;
+}
+function shuffleSeeded(arr,r){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(r()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function qSignature(q){
+  if(q.kind==='choice') return 'C|'+q.text.replace(/<[^>]+>/g,'').trim();
+  if(q.kind==='vertical') return 'V|'+q.op+'|'+q.a+'|'+q.b;
+  return 'T|'+q.text.replace(/<[^>]+>/g,'').trim();
+}
+
+const NAMA  = ['Adi','Budi','Siti','Rina','Dodi','Lala','Nia','Bayu','Cici','Eko',
+               'Fani','Gilang','Hana','Irfan','Joko','Kiki','Maya','Rizki','Sari','Tono'];
+const BENDA = ['apel','jeruk','kelereng','permen','buku','stiker','roti','bola',
+               'pensil','kue','mangga','biskuit','balon','kartu','koin'];
+
+const CERITA = {
+  mudah: [
+    r=>{const n=pick(r,NAMA),b=pick(r,BENDA),a=rnd(r,2,9),c=rnd(r,1,9);
+        return{text:`${n} punya <b>${a} ${b}</b>. Ia diberi <b>${c} ${b}</b> lagi oleh temannya. Berapa jumlah ${b} ${n} sekarang?`,answer:a+c};},
+    r=>{const n=pick(r,NAMA),b=pick(r,BENDA),a=rnd(r,4,10),c=rnd(r,1,a-1);
+        return{text:`${n} membawa <b>${a} ${b}</b> ke sekolah. Sebanyak <b>${c} ${b}</b> dimakan di jalan. Berapa ${b} ${n} yang tersisa?`,answer:a-c};},
+    r=>{const b=pick(r,BENDA),a=rnd(r,2,9),c=rnd(r,1,9);
+        return{text:`Di atas meja ada <b>${a} ${b}</b> dan <b>${c} ${b}</b>. Berapa banyak ${b} seluruhnya?`,answer:a+c};},
+    r=>{const b=pick(r,BENDA),a=rnd(r,2,5),c=rnd(r,2,5);
+        return{text:`Ada <b>${c} kotak</b>. Setiap kotak berisi <b>${a} ${b}</b>. Berapa jumlah semua ${b}?`,answer:a*c};},
+    r=>{const n=pick(r,NAMA),b=pick(r,BENDA),c=rnd(r,2,5),q=rnd(r,2,5),tot=c*q;
+        return{text:`${n} punya <b>${tot} ${b}</b>. Semuanya dibagi rata kepada <b>${c} teman</b>. Berapa ${b} untuk setiap teman?`,answer:q};},
+    r=>{const n=pick(r,NAMA),b=pick(r,BENDA),a=rnd(r,5,10),c=rnd(r,1,a-1);
+        return{text:`Di keranjang ada <b>${a} ${b}</b>. ${n} mengambil <b>${c} ${b}</b>. Berapa ${b} yang masih ada di keranjang?`,answer:a-c};},
+    r=>{const n=pick(r,NAMA),a=rnd(r,3,9),c=rnd(r,2,9);
+        return{text:`${n} menabung <b>${a} koin</b> hari ini. Besok ia menabung <b>${c} koin</b> lagi. Berapa koin ${n} sekarang?`,answer:a+c};},
+    r=>{const n=pick(r,NAMA),b=pick(r,BENDA),a=rnd(r,2,6),c=rnd(r,2,5);
+        return{text:`${n} punya <b>${c} kantong</b>. Setiap kantong berisi <b>${a} ${b}</b>. Berapa ${b} seluruhnya?`,answer:a*c};}
+  ],
+  normal: [
+    r=>{const n=pick(r,NAMA),a=rnd(r,15,60),c=rnd(r,10,40);
+        return{text:`${n} mengumpulkan <b>${a} stiker</b>. Ia mendapat <b>${c} stiker</b> lagi dari kakaknya. Berapa jumlah stiker ${n} sekarang?`,answer:a+c};},
+    r=>{const a=rnd(r,40,95),c=rnd(r,10,a-5);
+        return{text:`Perpustakaan sekolah memiliki <b>${a} buku cerita</b>. Sebanyak <b>${c} buku</b> dipinjam siswa. Berapa buku cerita yang masih ada?`,answer:a-c};},
+    r=>{const n=pick(r,NAMA),h=rnd(r,5,25)*100,c=rnd(r,2,8);
+        return{text:`Harga 1 buku tulis adalah <b>Rp${h}</b>. ${n} membeli <b>${c} buku</b>. Berapa rupiah yang harus dibayar?`,answer:h*c};},
+    r=>{const c=rnd(r,3,9),q=rnd(r,4,12),tot=c*q;
+        return{text:`Ada <b>${tot} kelereng</b> yang akan dimasukkan ke dalam <b>${c} kantong</b> sama banyak. Berapa kelereng isi setiap kantong?`,answer:q};},
+    r=>{const n=pick(r,NAMA),a=rnd(r,120,480),c=rnd(r,110,450);
+        return{text:`${n} berlari <b>${a} meter</b> pada hari Senin dan <b>${c} meter</b> pada hari Selasa. Berapa meter total jarak larinya?`,answer:a+c};},
+    r=>{const c=rnd(r,4,12),a=rnd(r,12,48);
+        return{text:`Sebuah toko menjual <b>${c} kardus</b> minuman. Setiap kardus berisi <b>${a} botol</b>. Berapa botol minuman seluruhnya?`,answer:c*a};},
+    r=>{const n=pick(r,NAMA),u=rnd(r,20,60)*1000,h=rnd(r,3,15)*500;
+        return{text:`${n} memiliki uang <b>Rp${u}</b>. Ia membeli alat tulis seharga <b>Rp${h}</b>. Berapa sisa uang ${n}?`,answer:u-h};},
+    r=>{const n=pick(r,NAMA),a=rnd(r,150,600),c=rnd(r,120,380);
+        return{text:`Kelas ${n} mengumpulkan <b>${a} lembar</b> kertas bekas. Kelas lain mengumpulkan <b>${c} lembar</b>. Berapa jumlah kertas bekas seluruhnya?`,answer:a+c};}
+  ],
+  sulit: [
+    r=>{const a=rnd(r,450,900),c=rnd(r,120,400),d=rnd(r,100,350);
+        return{text:`Koperasi sekolah memiliki <b>${a} buku</b>. Datang tambahan <b>${c} buku</b>, lalu <b>${d} buku</b> dipinjam siswa. Berapa buku yang tersisa?`,answer:a+c-d};},
+    r=>{const n=pick(r,NAMA),h=rnd(r,10,40)*100,c=rnd(r,4,12),tot=h*c,byr=tot+rnd(r,1,9)*1000;
+        return{text:`Harga 1 pensil <b>Rp${h}</b>. ${n} membeli <b>${c} pensil</b> dan membayar dengan uang <b>Rp${byr}</b>. Berapa kembalian yang diterima ${n}?`,answer:byr-tot};},
+    r=>{const c=rnd(r,8,20),a=rnd(r,25,60);
+        return{text:`Sebuah truk mengangkut <b>${c} karung</b> beras. Setiap karung berisi <b>${a} kg</b> beras. Berapa kg beras yang diangkut truk itu?`,answer:c*a};},
+    r=>{const n=pick(r,NAMA),a=rnd(r,200,500),d=rnd(r,50,150),c=rnd(r,40,180);
+        return{text:`Pak ${n} beternak <b>${a} ekor ayam</b>. Sebanyak <b>${d} ekor</b> dijual, lalu ia membeli <b>${c} ekor</b> lagi. Berapa ekor ayam Pak ${n} sekarang?`,answer:a-d+c};},
+    r=>{const c=rnd(r,6,15),q=rnd(r,20,45),tot=c*q;
+        return{text:`Sebuah sekolah memiliki <b>${tot} siswa</b> yang dibagi rata ke dalam <b>${c} kelas</b>. Berapa siswa di setiap kelas?`,answer:q};},
+    r=>{const n=pick(r,NAMA),a=rnd(r,120,450),c=rnd(r,80,380);
+        return{text:`Pak ${n} mengendarai mobil sejauh <b>${a} km</b>, lalu beristirahat. Setelah itu ia melanjutkan perjalanan <b>${c} km</b> lagi. Berapa km total perjalanan Pak ${n}?`,answer:a+c};},
+    r=>{const h=rnd(r,8,25)*1000,c=rnd(r,3,9),tot=h*c,byr=tot+rnd(r,2,9)*1000;
+        return{text:`Harga 1 kg gula adalah <b>Rp${h}</b>. Ibu membeli <b>${c} kg</b> gula dan membayar dengan <b>Rp${byr}</b>. Berapa uang kembalian Ibu?`,answer:byr-tot};},
+    r=>{const c=rnd(r,5,12),q=rnd(r,15,35),tot=c*q,d=rnd(r,20,90);
+        return{text:`Gudang berisi <b>${tot} kotak</b> barang yang dimuat ke <b>${c} truk</b> sama banyak. Setelah itu <b>${d} kotak</b> terjual. Berapa kotak yang masih tersimpan di gudang?`,answer:tot-d};}
+  ]
+};
+
+function genTambah(level,r){
+  let a,b;
+  if(level==='mudah'){ a=rnd(r,1,10); b=rnd(r,1,10); }
+  else if(level==='normal'){ a=rnd(r,12,78); b=rnd(r,11,99-a); }
+  else { a=rnd(r,125,798); b=rnd(r,103,999-a); }
+  return {kind:'vertical',op:'+',a:a,b:b,answer:a+b};
+}
+function genKurang(level,r){
+  let a,b;
+  if(level==='mudah'){ a=rnd(r,3,10); b=rnd(r,1,a-1); }
+  else if(level==='normal'){ a=rnd(r,25,99); b=rnd(r,10,a-1); }
+  else { a=rnd(r,250,999); b=rnd(r,105,a-1); }
+  return {kind:'vertical',op:'−',a:a,b:b,answer:a-b};
+}
+function genKali(level,r,i){
+  let a,b;
+  if(level==='mudah'){ a=rnd(r,1,5); b=rnd(r,1,5); }
+  else if(level==='normal'){ a=rnd(r,2,10); b=rnd(r,2,10); }
+  else {
+    if(i%3===0){ a=rnd(r,11,25); b=rnd(r,11,19); }
+    else { a=rnd(r,12,49); b=rnd(r,3,9); }
+  }
+  return {kind:'vertical',op:'×',a:a,b:b,answer:a*b};
+}
+function genBagi(level,r){
+  let b,q;
+  if(level==='mudah'){ b=rnd(r,2,5); q=rnd(r,1,5); }
+  else if(level==='normal'){ b=rnd(r,2,9); q=rnd(r,2,10); }
+  else { b=rnd(r,3,12); q=rnd(r,11,25); }
+  const a=b*q;
+  return {kind:'text',text:`<div class="mathline">${a} : ${b} = ?</div>`,answer:q};
+}
+function genAkar(level,r,i){
+  let n;
+  if(level==='mudah') n=rnd(r,1,10);
+  else if(level==='normal') n=rnd(r,4,15);
+  else n=rnd(r,12,25);
+  const sq=n*n;
+  if(level==='sulit' && i%4===3){
+    const m=rnd(r,5,15);
+    return {kind:'text',text:`<div class="mathline">√${sq} + √${m*m} = ?</div>`,answer:n+m};
+  }
+  return {kind:'text',text:`<div class="mathline">√${sq} = ?</div>`,answer:n};
+}
+function genCerita(level,r,i){
+  const tpls=CERITA[level];
+  const t=tpls[i % tpls.length](r);
+  return {kind:'text',text:`<div class="story">${t.text}</div>`,answer:t.answer};
+}
+function generateMath(type,level,r,i){
+  switch(type){
+    case 'cerita': return genCerita(level,r,i);
+    case 'tambah': return genTambah(level,r);
+    case 'kurang': return genKurang(level,r);
+    case 'kali':   return genKali(level,r,i);
+    case 'bagi':   return genBagi(level,r);
+    case 'akar':   return genAkar(level,r,i);
+  }
+}
+
+const BI_SINONIM = {
+  mudah: [
+    ['senang','gembira'],['cantik','indah'],['pintar','cerdas'],['berani','gagah'],
+    ['cepat','lekas'],['kecil','mungil'],['bagus','elok'],['ramah','sopan'],
+    ['sedih','murung'],['takut','gentar'],['besar','raksasa'],['kuat','kokoh'],
+    ['hemat','irit'],['rajin','tekun'],['kaya','makmur'],['pandai','cerdas'],
+    ['indah','permai'],['hebat','unggul'],['girang','riang'],['lapar','kelaparan'],
+    ['haus','dahaga'],['lelah','letih'],['berat','sulit'],['ringan','enteng'],
+    ['jernih','bening']
+  ],
+  normal: [
+    ['memperlihatkan','menunjukkan'],['mendatangi','mengunjungi'],
+    ['menciptakan','membuat'],['menolong','membantu'],
+    ['memandang','melihat'],['berucap','berkata'],
+    ['pemurah','dermawan'],
+    ['gesit','cekatan'],['tekun','gigih'],
+    ['arif','bijaksana'],['cemas','khawatir'],
+    ['cemerlang','gemilang'],['modern','mutakhir'],
+    ['antik','kuno'],['simpel','sederhana'],
+    ['tangguh','kokoh'],['permai','indah'],
+    ['bersahaja','sederhana'],['melirik','mengintip'],
+    ['mulia','terhormat'],['kesohor','terkenal']
+  ],
+  sulit: [
+    ['dermawan','pemurah'],['gigih','tekun'],['angkuh','sombong'],
+    ['bijaksana','arif'],['khawatir','cemas'],['gemilang','cemerlang'],
+    ['mutakhir','modern'],['kuno','antik'],['sederhana','simpel'],
+    ['kontroversi','perdebatan'],['dedikasi','pengabdian'],
+    ['ambisi','hasrat'],['prestasi','pencapaian'],
+    ['kredibel','terpercaya'],['inovatif','kreatif'],
+    ['fundamental','mendasar'],['signifikan','penting'],
+    ['resolusi','keputusan'],['evaluasi','penilaian'],
+    ['prediksi','ramalan'],['komprehensif','menyeluruh'],
+    ['esensial','hakiki'],['determinasi','ketetapan hati'],
+    ['konsisten','taat asas'],['optimis','yakin']
+  ]
+};
+const BI_ANTONIM = {
+  mudah: [
+    ['besar','kecil'],['tinggi','rendah'],['panas','dingin'],['siang','malam'],
+    ['cepat','lambat'],['senang','sedih'],['terang','gelap'],['jauh','dekat'],
+    ['kaya','miskin'],['bersih','kotor'],['panjang','pendek'],['berat','ringan'],
+    ['ramai','sepi'],['keras','lembut'],['naik','turun'],['rajin','malas'],
+    ['kuat','lemah'],['pagi','sore'],['mahal','murah'],['gelap','terang'],
+    ['basah','kering'],['penuh','kosong'],['tua','muda'],['hidup','mati'],
+    ['benar','salah']
+  ],
+  normal: [
+    ['tinggi','rendah'],['maju','mundur'],['menang','kalah'],['untung','rugi'],
+    ['hemat','boros'],['berani','takut'],['ramah','kasar'],['jujur','bohong'],
+    ['runtuh','berdiri'],['menangis','tertawa'],['memulai','mengakhiri'],
+    ['meminjam','mengembalikan'],['membangun','merobohkan'],['menambah','mengurangi'],
+    ['membuka','menutup'],['memberi','menerima'],['memuji','mencela'],
+    ['menyetujui','menolak'],['mempercepat','memperlambat'],['menguatkan','melemahkan'],
+    ['memasukkan','mengeluarkan'],['mengangkat','menurunkan'],['menyimpan','mengambil'],
+    ['melarang','mengizinkan'],['menghina','memuji']
+  ],
+  sulit: [
+    ['kedatangan','kepergian'],['kebersihan','kekotoran'],
+    ['kecerdasan','kebodohan'],['keramahan','kekasaran'],
+    ['keberanian','ketakutan'],['kemakmuran','kemiskinan'],
+    ['keteraturan','kekacauan'],['kejujuran','kebohongan'],
+    ['kelebihan','kekurangan'],['keuntungan','kerugian'],
+    ['kelahiran','kematian'],['kemajuan','kemunduran'],
+    ['persatuan','perpecahan'],['kebaikan','keburukan'],
+    ['ketenangan','kegelisahan'],['kemenangan','kekalahan'],
+    ['kekuatan','kelemahan'],['kemudahan','kesulitan'],
+    ['keterbukaan','ketertutupan'],['kesederhanaan','kemewahan'],
+    ['ketergantungan','kemandirian'],['keterbatasan','keluasan'],
+    ['kepercayaan','kecurigaan'],['kepastian','ketidakpastian'],
+    ['kerukunan','perselisihan']
+  ]
+};
+const BI_KATA_BAKU = {
+  mudah: [
+    {baku:'apotek',salah:'apotik'},{baku:'izin',salah:'ijin'},
+    {baku:'cabai',salah:'cabe'},{baku:'jadwal',salah:'jadual'},
+    {baku:'foto',salah:'photo'},{baku:'ijazah',salah:'ijasah'},
+    {baku:'aktif',salah:'aktip'},{baku:'november',salah:'nopember'},
+    {baku:'praktik',salah:'praktek'},{baku:'nasihat',salah:'nasehat'},
+    {baku:'debit',salah:'debet'},{baku:'karier',salah:'karir'},
+    {baku:'aktivitas',salah:'aktifitas'},{baku:'kualitas',salah:'kwalitas'},
+    {baku:'analisis',salah:'analisa'},{baku:'hafal',salah:'hapal'},
+    {baku:'saksama',salah:'seksama'},{baku:'kategori',salah:'katagori'},
+    {baku:'objek',salah:'obyek'},{baku:'zaman',salah:'jaman'},
+    {baku:'manajemen',salah:'menejemen'},{baku:'silakan',salah:'silahkan'},
+    {baku:'notulen',salah:'notula'},{baku:'sekretaris',salah:'sekertaris'},
+    {baku:'kristen',salah:'kristen'}
+  ],
+  normal: [
+    {baku:'apotek',salah:'apotik'},{baku:'izin',salah:'ijin'},
+    {baku:'cabai',salah:'cabe'},{baku:'jadwal',salah:'jadual'},
+    {baku:'aktivitas',salah:'aktifitas'},{baku:'kualitas',salah:'kwalitas'},
+    {baku:'metode',salah:'metoda'},{baku:'faksimile',salah:'faksimili'},
+    {baku:'telepon',salah:'telpon'},{baku:'sertifikat',salah:'sertipikat'},
+    {baku:'atlet',salah:'atlit'},{baku:'kreatif',salah:'kreatip'},
+    {baku:'konkret',salah:'konkrit'},{baku:'khotbah',salah:'kotbah'},
+    {baku:'ijazah',salah:'ijasah'},{baku:'nasihat',salah:'nasehat'},
+    {baku:'silakan',salah:'silahkan'},{baku:'terampil',salah:'trampil'},
+    {baku:'ritme',salah:'irama'},{baku:'hierarki',salah:'hirarki'},
+    {baku:'jenderal',salah:'jendral'},{baku:'standardisasi',salah:'standarisasi'},
+    {baku:'utang',salah:'hutang'},{baku:'senior',salah:'seniyor'},
+    {baku:'saksama',salah:'seksama'}
+  ],
+  sulit: [
+    {baku:'apotek',salah:'apotik'},{baku:'izin',salah:'ijin'},
+    {baku:'analisis',salah:'analisa'},{baku:'sintesis',salah:'sintesa'},
+    {baku:'hipotesis',salah:'hipotesa'},{baku:'diagnosis',salah:'diagnosa'},
+    {baku:'kualitas',salah:'kwalitas'},{baku:'frekuensi',salah:'frekwensi'},
+    {baku:'aktual',salah:'aktuil'},{baku:'kompleks',salah:'komplek'},
+    {baku:'objek',salah:'obyek'},{baku:'subjek',salah:'subyek'},
+    {baku:'sertifikat',salah:'sertipikat'},{baku:'kategori',salah:'katagori'},
+    {baku:'hierarki',salah:'hirarki'},{baku:'jenderal',salah:'jendral'},
+    {baku:'saksama',salah:'seksama'},{baku:'senior',salah:'seniyor'},
+    {baku:'standardisasi',salah:'standarisasi'},{baku:'utang',salah:'hutang'},
+    {baku:'praktik',salah:'praktek'},{baku:'nasihat',salah:'nasehat'},
+    {baku:'faksimile',salah:'faksimili'},{baku:'telepon',salah:'telpon'},
+    {baku:'kreatif',salah:'kreatip'}
+  ]
+};
+const BI_MEMBACA = {
+  mudah: [
+    {text:'Siti pergi ke pasar bersama ibu. Mereka membeli apel dan jeruk. Setelah itu mereka pulang ke rumah.',q:'Siapa yang pergi ke pasar?',a:'Siti dan ibu',w:['Ayah dan ibu','Siti sendiri','Kakak dan adik']},
+    {text:'Budi memiliki seekor kucing bernama Milo. Milo berwarna putih dan sangat lucu. Budi selalu memberi Milo makan setiap pagi.',q:'Apa nama kucing Budi?',a:'Milo',w:['Budi','Putih','Lucu']},
+    {text:'Rina menanam bunga mawar di halaman rumah. Setiap hari ia menyiraminya. Bunga itu tumbuh subur dan berwarna merah.',q:'Apa warna bunga Rina?',a:'Merah',w:['Putih','Kuning','Biru']},
+    {text:'Ayah membeli sepeda baru untuk Adi. Adi sangat senang. Ia langsung belajar mengendarainya di depan rumah.',q:'Apa yang dibeli ayah?',a:'Sepeda',w:['Motor','Bola','Buku']},
+    {text:'Pada hari Minggu, keluarga Dodi pergi ke pantai. Mereka bermain pasir dan berenang. Dodi membawa bekal nasi dan ayam.',q:'Ke mana keluarga Dodi pergi?',a:'Pantai',w:['Gunung','Kebun','Sekolah']},
+    {text:'Ibu memasak nasi goreng di dapur. Aromanya sangat harum. Kakak membantu ibu menyiapkan piring.',q:'Apa yang dimasak ibu?',a:'Nasi goreng',w:['Mie goreng','Sate','Sop']},
+    {text:'Nia membawa bekal roti ke sekolah. Saat istirahat ia makan bersama teman-temannya. Mereka makan dengan gembira.',q:'Apa bekal Nia?',a:'Roti',w:['Nasi','Mie','Buah']},
+    {text:'Di kebun ada banyak kupu-kupu berwarna-warni. Mereka terbang dari satu bunga ke bunga lain. Anak-anak senang melihatnya.',q:'Apa yang ada di kebun?',a:'Kupu-kupu',w:['Ikan','Burung','Kucing']},
+    {text:'Kakek duduk di teras sambil membaca koran. Ia memakai kacamata. Sesekali ia tersenyum membaca berita lucu.',q:'Apa yang dibaca kakek?',a:'Koran',w:['Buku','Komik','Majalah']},
+    {text:'Setiap pagi Pak Tani pergi ke sawah. Ia menanam padi bersama warga. Mereka bekerja sampai siang hari.',q:'Apa yang ditanam Pak Tani?',a:'Padi',w:['Jagung','Kedelai','Kacang']},
+    {text:'Rudi bermain bola di lapangan bersama teman-temannya. Mereka bermain dengan riang. Setelah selesai, mereka minum air putih bersama.',q:'Apa yang dimainkan Rudi?',a:'Bola',w:['Kelereng','Layang-layang','Petak umpet']},
+    {text:'Ayah memelihara tiga ekor ayam di belakang rumah. Setiap pagi ayam-ayam itu diberi makan jagung.',q:'Berapa ekor ayam Ayah?',a:'Tiga ekor',w:['Dua ekor','Empat ekor','Lima ekor']}
+  ],
+  normal: [
+    {text:'Hari Minggu pagi, Andi dan keluarganya pergi ke kebun binatang. Mereka melihat singa, jerapah, dan gajah. Andi paling suka jerapah karena lehernya panjang. Mereka pulang dengan gembira.',q:'Hewan apa yang paling disukai Andi?',a:'Jerapah',w:['Singa','Gajah','Harimau']},
+    {text:'Sekolah Sari mengadakan lomba mewarnai. Sari ikut lomba dan berhasil juara dua. Ia mendapat piala dan hadiah buku tulis. Sari sangat bangga pada dirinya.',q:'Juara berapa Sari dalam lomba?',a:'Juara dua',w:['Juara satu','Juara tiga','Tidak juara']},
+    {text:'Pak Budi adalah seorang dokter hewan. Ia merawat hewan-hewan sakit. Kemarin ia merawat kucing yang kakinya terluka. Kucing itu sekarang sudah sehat kembali.',q:'Apa pekerjaan Pak Budi?',a:'Dokter hewan',w:['Dokter gigi','Guru','Petani']},
+    {text:'Keluarga Rani mengadakan kerja bakti di rumah. Ayah mengecat dinding, ibu menyapu halaman, dan Rani menyiram bunga. Setelah selesai rumah mereka terlihat bersih dan rapi.',q:'Apa yang dilakukan Rani?',a:'Menyiram bunga',w:['Mengecat dinding','Menyapu halaman','Mencuci mobil']},
+    {text:'Setiap hari Senin siswa-siswi mengikuti upacara bendera. Mereka berbaris rapi di lapangan. Bendera merah putih dikibarkan dengan khidmat.',q:'Hari apa upacara diadakan?',a:'Senin',w:['Minggu','Jumat','Selasa']},
+    {text:'Ibu pergi ke supermarket untuk berbelanja. Ia membeli beras, minyak, dan telur. Ibu juga membeli cokelat untuk adik. Semua belanjaan dimasukkan ke tas plastik.',q:'Apa yang dibeli ibu untuk adik?',a:'Cokelat',w:['Beras','Minyak','Telur']},
+    {text:'Di perpustakaan sekolah ada banyak buku. Ada buku cerita, buku pelajaran, dan majalah anak. Anak-anak meminjam buku dengan tertib dan mengembalikannya tepat waktu.',q:'Buku apa saja yang ada di perpustakaan?',a:'Cerita, pelajaran, dan majalah',w:['Hanya buku cerita','Hanya majalah','Hanya komik']},
+    {text:'Paman Rizki bekerja sebagai nelayan. Setiap malam ia pergi ke laut menangkap ikan. Pagi-pagi ia kembali ke dermaga membawa banyak ikan segar.',q:'Kapan Paman Rizki pergi ke laut?',a:'Malam hari',w:['Pagi hari','Siang hari','Sore hari']},
+    {text:'Pak Rahmat menanam pohon mangga di halaman. Setelah beberapa tahun, pohon itu berbuah lebat. Buahnya manis dan berwarna kuning. Tetangga sering meminta buahnya.',q:'Apa warna buah mangga Pak Rahmat?',a:'Kuning',w:['Merah','Hijau','Ungu']},
+    {text:'Nina belajar dengan rajin setiap hari. Ia selalu mengerjakan PR sebelum bermain. Karena itu, nilai ulangannya selalu bagus dan ia naik kelas dengan mudah.',q:'Mengapa nilai Nina selalu bagus?',a:'Karena ia belajar rajin',w:['Karena ia bermain terus','Karena ia suka menunda','Karena ia mencontek']},
+    {text:'Di sekolah Dita ada kegiatan pramuka setiap hari Jumat. Mereka belajar tali-temali, baris-berbaris, dan memasak di alam terbuka.',q:'Kapan kegiatan pramuka dilaksanakan?',a:'Hari Jumat',w:['Hari Senin','Hari Rabu','Hari Minggu']},
+    {text:'Setiap pagi Pak Joni membuka warung kopi di pinggir jalan. Warungnya selalu ramai pembeli. Pak Joni ramah kepada semua pelanggannya.',q:'Mengapa warung Pak Joni selalu ramai?',a:'Karena Pak Joni ramah',w:['Karena harganya mahal','Karena letaknya tersembunyi','Karena tidak ada pembeli lain']}
+  ],
+  sulit: [
+    {text:'Pada zaman dahulu, di sebuah desa hiduplah seorang pemuda bernama Jaka. Ia sangat rajin bekerja dan berbakti kepada orang tuanya. Suatu hari, ia bertemu seorang pertapa yang memberinya sebuah pusaka. Karena kerja kerasnya, Jaka menjadi orang yang sukses dan dihormati warga.',q:'Apa pesan moral dari cerita tersebut?',a:'Kerja keras dan bakti membawa keberhasilan',w:['Pusaka bisa mengubah hidup','Pertapa selalu membantu','Desa kuno penuh keajaiban']},
+    {text:'Banjir yang melanda kota kemarin menyebabkan banyak kerusakan. Ratusan rumah terendam, sekolah diliburkan, dan jalanan tidak bisa dilalui kendaraan. Pemerintah segera menyalurkan bantuan kepada warga yang terdampak. Warga diminta tetap waspada karena hujan diperkirakan masih turun.',q:'Apa penyebab utama permasalahan pada teks tersebut?',a:'Banjir',w:['Gempa','Kebakaran','Tanah longsor']},
+    {text:'Membaca buku memiliki banyak manfaat. Dengan membaca, pengetahuan kita bertambah, kosakata kita kaya, dan imajinasi kita terlatih. Orang yang rajin membaca biasanya lebih mudah memahami pelajaran di sekolah. Oleh karena itu, budaya membaca perlu ditanamkan sejak dini.',q:'Apa gagasan utama paragraf tersebut?',a:'Manfaat membaca buku',w:['Cara memahami pelajaran','Cara menanamkan budaya','Pentingnya sekolah']},
+    {text:'Pulau Komodo terletak di Nusa Tenggara Timur. Pulau ini terkenal karena menjadi habitat asli hewan komodo. Komodo adalah kadal terbesar di dunia yang dilindungi. Setiap tahun, ribuan wisatawan datang untuk melihat langsung hewan purba ini.',q:'Di manakah Pulau Komodo berada?',a:'Nusa Tenggara Timur',w:['Nusa Tenggara Barat','Bali','Lombok']},
+    {text:'Hemat energi adalah tanggung jawab bersama. Kita bisa memulai dari hal kecil, seperti mematikan lampu saat tidak digunakan, mengurangi penggunaan plastik, dan menggunakan transportasi umum. Jika setiap orang melakukannya, bumi kita akan lebih sehat dan lestari.',q:'Apa contoh hemat energi menurut teks tersebut?',a:'Mematikan lampu saat tidak digunakan',w:['Menyalakan lampu terus-menerus','Membuang sampah di jalan','Bermain gadget seharian']},
+    {text:'Kemarin Rina mengikuti lomba pidato di sekolahnya. Ia berlatih keras selama dua minggu. Meskipun akhirnya ia tidak menang, ia tidak menyerah dan tetap semangat. Menurutnya, pengalaman adalah hadiah terbaik.',q:'Apa yang dilakukan Rina setelah tidak menang?',a:'Tidak menyerah dan tetap semangat',w:['Marah kepada juri','Berhenti ikut lomba','Menyalahkan teman']},
+    {text:'Kebersihan lingkungan sekolah adalah tanggung jawab seluruh warga sekolah. Siswa dilarang membuang sampah sembarangan. Kantin sekolah juga diwajibkan menyediakan tempat sampah terpisah antara organik dan anorganik. Dengan lingkungan bersih, belajar menjadi lebih nyaman.',q:'Di mana tempat sampah terpisah wajib disediakan?',a:'Di kantin sekolah',w:['Di rumah','Di pasar','Di taman kota']},
+    {text:'Beras adalah makanan pokok bagi sebagian besar masyarakat Indonesia. Beras dihasilkan dari tanaman padi yang ditanam di sawah. Proses penanaman padi memerlukan air yang cukup serta perawatan yang telaten dari para petani. Karena itu, kita harus menghargai kerja keras petani dengan tidak menyia-nyiakan makanan.',q:'Apa yang harus kita lakukan terhadap kerja keras petani?',a:'Menghargai dengan tidak menyia-nyiakan makanan',w:['Membuang makanan sisa','Menanam padi sendiri','Membeli beras impor']},
+    {text:'Setiap pagi Bu Sinta membuka warungnya pukul lima. Ia menjual nasi uduk, gorengan, dan teh manis. Warungnya selalu ramai pembeli. Bu Sinta melayani semua pelanggan dengan senyum ramah sehingga banyak orang suka berbelanja di sana.',q:'Mengapa warung Bu Sinta selalu ramai?',a:'Karena Bu Sinta ramah kepada pelanggan',w:['Karena harga mahal','Karena buka siang','Karena tidak ada pembeli lain']},
+    {text:'Teknologi berkembang sangat pesat saat ini. Berbagai alat komunikasi canggih bermunculan. Namun, penggunaan teknologi perlu bijak. Jika digunakan berlebihan, teknologi dapat berdampak buruk bagi kesehatan dan hubungan sosial kita.',q:'Apa akibat penggunaan teknologi berlebihan?',a:'Dampak buruk bagi kesehatan dan hubungan sosial',w:['Membuat pintar seketika','Menambah banyak teman','Membuat badan sehat']},
+    {text:'Ibu guru menjelaskan bahwa pohon memiliki banyak manfaat bagi kehidupan. Akar pohon menahan air hujan agar tidak terjadi banjir. Daunnya menghasilkan oksigen untuk kita bernapas. Kayunya dapat dijadikan meja dan kursi.',q:'Apa manfaat akar pohon menurut teks?',a:'Menahan air hujan agar tidak banjir',w:['Menghasilkan oksigen','Menjadi meja dan kursi','Menyerap sinar matahari']},
+    {text:'Pada saat peringatan hari Kemerdekaan, seluruh warga desa bergotong royong menghias jalan. Mereka memasang bendera merah putih dan umbul-umbul. Anak-anak antusias membantu orang tua.',q:'Apa yang dipasang warga untuk menghias jalan?',a:'Bendera dan umbul-umbul',w:['Bunga dan lampu','Papan nama','Kursi dan meja']}
+  ]
+};
+const BI_TANDA_BACA = {
+  mudah: [
+    {text:'Ibu membeli apel_k jeruk_k dan mangga di pasar.',q:'Tanda baca yang tepat untuk mengisi bagian kosong adalah...',a:'koma (,)',w:['titik (.)','tanda tanya (?)','seru (!)']},
+    {text:'Di mana rumahmu_',q:'Tanda baca yang tepat di akhir kalimat tanya adalah...',a:'tanda tanya (?)',w:['titik (.)','koma (,)','seru (!)']},
+    {text:'Wah_ indah sekali pemandangan ini_',q:'Tanda baca yang tepat untuk kalimat seru adalah...',a:'seru (!)',w:['titik (.)','koma (,)','tanda tanya (?)']},
+    {text:'Ayah membaca koran_sedangkan ibu memasak di dapur.',q:'Tanda baca yang tepat untuk memisahkan dua klausa adalah...',a:'koma (,)',w:['titik (.)','tanda tanya (?)','titik dua (:)']},
+    {text:'Aku suka buah mangga_ pisang_dan jeruk.',q:'Tanda baca yang tepat untuk memisahkan rincian adalah...',a:'koma (,)',w:['titik (.)','seru (!)','tanda tanya (?)']},
+    {text:'Siapa nama gurumu_',q:'Tanda baca yang tepat di akhir kalimat adalah...',a:'tanda tanya (?)',w:['titik (.)','koma (,)','seru (!)']},
+    {text:'Hore_ kita menang lomba_',q:'Tanda baca yang tepat untuk mengakhiri kalimat seru adalah...',a:'seru (!)',w:['titik (.)','koma (,)','tanda tanya (?)']},
+    {text:'Siti membeli pensil_buku_dan penghapus.',q:'Tanda baca yang tepat mengisi bagian kosong adalah...',a:'koma (,)',w:['titik (.)','seru (!)','tanda tanya (?)']},
+    {text:'Namaku Adi_',q:'Tanda baca yang tepat mengakhiri kalimat berita adalah...',a:'titik (.)',w:['koma (,)','tanda tanya (?)','seru (!)']},
+    {text:'Kapan kamu berulang tahun_',q:'Tanda baca yang tepat di akhir kalimat adalah...',a:'tanda tanya (?)',w:['titik (.)','koma (,)','seru (!)']},
+    {text:'Aduh_ kakiku sakit_',q:'Tanda baca yang tepat di akhir kalimat adalah...',a:'seru (!)',w:['titik (.)','koma (,)','tanda tanya (?)']},
+    {text:'Aku membeli buku_ pulpen_dan penggaris.',q:'Tanda baca yang tepat mengisi bagian kosong adalah...',a:'koma (,)',w:['titik (.)','seru (!)','tanda tanya (?)']}
+  ],
+  normal: [
+    {text:'Bu Guru berkata_ "Anak-anak, kerjakan soal halaman sepuluh."',q:'Tanda baca yang tepat sebelum kutipan adalah...',a:'titik dua (:)',w:['koma (,)','titik (.)','seru (!)']},
+    {text:'Kemarin saya membeli buku, pensil, dan penghapus.',q:'Kalimat tersebut menggunakan tanda baca...',a:'koma (,) untuk memisahkan rincian',w:['titik dua (:) untuk memisahkan rincian','titik (.) untuk memisahkan rincian','seru (!) untuk memisahkan rincian']},
+    {text:'Hari ini adalah hari Senin_tanggal 5 Oktober 2025.',q:'Tanda baca yang tepat mengisi bagian kosong adalah...',a:'koma (,)',w:['titik (.)','seru (!)','tanda tanya (?)']},
+    {text:'"Awas_jangan sentuh!" kata ibu.',q:'Tanda baca yang tepat mengisi bagian kosong adalah...',a:'koma (,)',w:['titik (.)','seru (!)','tanda tanya (?)']},
+    {text:'Buku itu berjudul "Laskar Pelangi".',q:'Tanda petik (" ") digunakan untuk...',a:'menandai judul buku',w:['menandai kalimat tanya','menandai kalimat seru','menandai rincian']},
+    {text:'Rina bertanya_ "Apakah kamu sudah makan?"',q:'Tanda baca yang tepat sebelum kutipan adalah...',a:'titik dua (:)',w:['koma (,)','titik (.)','seru (!)']},
+    {text:'Kita harus rajin belajar_agar sukses di masa depan.',q:'Tanda baca yang tepat mengisi bagian kosong adalah...',a:'koma (,)',w:['titik (.)','tanda tanya (?)','seru (!)']},
+    {text:'Adik menangis_ karena jatuh dari sepeda.',q:'Tanda baca yang tepat mengisi bagian kosong adalah...',a:'koma (,)',w:['seru (!)','titik (.)','tanda tanya (?)']},
+    {text:'Indonesia memiliki lima pulau besar_ Sumatra_ Jawa_ Kalimantan_ Sulawesi_ dan Papua.',q:'Tanda baca untuk memisahkan rincian adalah...',a:'koma (,)',w:['titik (.)','seru (!)','tanda tanya (?)']},
+    {text:'Wow_ betapa indahnya pemandangan di pantai ini_',q:'Tanda baca yang tepat untuk kalimat seru adalah...',a:'seru (!)',w:['titik (.)','koma (,)','titik dua (:)']},
+    {text:'Dia membeli_ buku_ pensil_ dan tas.',q:'Tanda baca yang tepat setelah kata "membeli" adalah...',a:'titik dua (:)',w:['koma (,)','titik (.)','seru (!)']},
+    {text:'Ibu berkata_"Jangan lupa makan siang."',q:'Tanda baca yang tepat sebelum kutipan adalah...',a:'titik dua (:)',w:['koma (,)','titik (.)','seru (!)']}
+  ],
+  sulit: [
+    {text:'"Besok kita akan berangkat ke Bandung," kata ayah.',q:'Mengapa kata "kata ayah" ditulis dengan huruf kecil?',a:'Karena merupakan lanjutan kalimat',w:['Karena salah tulis','Karena kata ayah bukan nama','Karena setelah tanda petik harus kecil']},
+    {text:'Nasi goreng_jus alpukat_dan ayam bakar tersedia di menu restoran itu.',q:'Tanda baca yang tepat untuk memisahkan rincian adalah...',a:'koma (,)',w:['titik (.)','seru (!)','titik dua (:)']},
+    {text:'Syarat mengikuti lomba_ mengisi formulir_membayar biaya_dan mengumpulkan karya.',q:'Tanda baca yang tepat setelah kata "lomba" adalah...',a:'titik dua (:)',w:['koma (,)','titik (.)','seru (!)']},
+    {text:'Paman bertanya_ "Kapan kamu akan berkunjung ke rumahku?"',q:'Tanda baca yang tepat sebelum kutipan langsung adalah...',a:'titik dua (:)',w:['koma (,)','titik (.)','seru (!)']},
+    {text:'Ayah membaca koran_sedangkan ibu memasak di dapur.',q:'Tanda baca yang tepat sebelum kata "sedangkan" adalah...',a:'koma (,)',w:['titik (.)','titik dua (:)','seru (!)']},
+    {text:'Kata Bu Rina_ "Rapikan buku-bukumu sebelum pulang."',q:'Tanda baca yang tepat sebelum kutipan adalah...',a:'titik dua (:)',w:['koma (,)','seru (!)','titik (.)']},
+    {text:'Ani suka membaca novel_ Dodi suka membaca komik.',q:'Tanda baca yang tepat untuk memisahkan dua klausa setara adalah...',a:'koma (,)',w:['titik (.)','titik dua (:)','tanda tanya (?)']},
+    {text:'Ibu membeli_ beras_minyak_telur_dan gula.',q:'Tanda baca yang tepat mengisi bagian kosong adalah...',a:'titik dua (:) lalu koma (,)',w:['koma (,) lalu titik (.)','titik (.) lalu koma (,)','seru (!) lalu koma (,)']},
+    {text:'Rani membaca buku "Bumi Manusia" karya Pramoedya Ananta Toer.',q:'Tanda petik pada kalimat tersebut digunakan untuk...',a:'menandai judul buku',w:['menandai nama penulis','menandai kalimat tanya','menandai kalimat seru']},
+    {text:'"Jangan lupa mengunci pintu_" pesan ibu sebelum pergi.',q:'Tanda baca yang tepat mengisi bagian kosong adalah...',a:'koma (,)',w:['titik (.)','seru (!)','titik dua (:)']},
+    {text:'Dia adalah orang yang rajin_ jujur_ dan bertanggung jawab.',q:'Tanda baca untuk memisahkan sifat adalah...',a:'koma (,)',w:['titik (.)','titik dua (:)','seru (!)']},
+    {text:'"Selamat pagi_ Bu Guru_" sapa Ani.',q:'Tanda baca yang tepat mengisi kedua bagian kosong adalah...',a:'koma (,) dan seru (!)',w:['titik (.) dan seru (!)','koma (,) dan titik (.)','seru (!) dan titik (.)']}
+  ]
+};
+const BI_KALIMAT = {
+  mudah: [
+    {q:'Susun kata berikut menjadi kalimat yang benar: ibu - pasar - pergi - ke',a:'Ibu pergi ke pasar.',w:['Pasar ibu ke pergi.','Ke pasar ibu pergi.','Pergi ibu ke pasar.']},
+    {q:'Lengkapi kalimat: Adik ... susu setiap pagi.',a:'minum',w:['makan','tidur','main']},
+    {q:'Lengkapi kalimat: Ayah ... mobil ke kantor.',a:'mengendarai',w:['memakan','membaca','menulis']},
+    {q:'Susun kata berikut menjadi kalimat yang benar: buku - membaca - Siti - sedang',a:'Siti sedang membaca buku.',w:['Buku Siti sedang membaca.','Membaca Siti buku sedang.','Sedang Siti membaca buku.']},
+    {q:'Lengkapi kalimat: Ibu ... di dapur.',a:'memasak',w:['berlari','menyanyi','melompat']},
+    {q:'Lengkapi kalimat: Kami ... bola di lapangan.',a:'bermain',w:['makan','tidur','mandi']},
+    {q:'Susun kata berikut menjadi kalimat yang benar: ke - berangkat - sekolah - Budi',a:'Budi berangkat ke sekolah.',w:['Sekolah Budi ke berangkat.','Berangkat Budi ke sekolah.','Ke sekolah Budi berangkat.']},
+    {q:'Lengkapi kalimat: Kucing itu ... di bawah meja.',a:'tidur',w:['terbang','berlari','memanjat']},
+    {q:'Lengkapi kalimat: Rina ... lagu di panggung.',a:'menyanyikan',w:['makan','meminum','menulis']},
+    {q:'Susun kata berikut menjadi kalimat yang benar: apel - memakan - adik',a:'Adik memakan apel.',w:['Apel adik memakan.','Memakan apel adik.','Memakan adik apel.']},
+    {q:'Lengkapi kalimat: Kakak ... buku di kamar.',a:'membaca',w:['minum','berlari','memasak']},
+    {q:'Susun kata berikut menjadi kalimat yang benar: sedang - ibu - nasi - memasak',a:'Ibu sedang memasak nasi.',w:['Nasi ibu sedang memasak.','Memasak ibu nasi sedang.','Sedang nasi ibu memasak.']}
+  ],
+  normal: [
+    {q:'Pilihlah kalimat yang paling tepat!',a:'Ibu memasak nasi goreng di dapur.',w:['Ibu memasak di dapur nasi goreng.','Di dapur ibu nasi goreng memasak.','Nasi goreng ibu di dapur memasak.']},
+    {q:'Lengkapi kalimat: Karena hujan deras, ...',a:'kami tidak jadi pergi ke pantai.',w:['kami pergi ke pantai.','kami tetap berangkat.','kami tidak peduli.']},
+    {q:'Pilihlah kalimat yang menggunakan ejaan yang benar!',a:'Ayah membeli buku di toko.',w:['Ayah membeli buku di Toko.','ayah membeli buku di toko.','AYAH MEMBELI BUKU DI TOKO.']},
+    {q:'Lengkapi kalimat: Setelah selesai belajar, ...',a:'Rina membantu ibunya memasak.',w:['Rina belajar lagi.','Rina marah-marah.','Rina pergi tidur.']},
+    {q:'Pilihlah kalimat yang paling lengkap!',a:'Ani membaca buku cerita di kamar.',w:['Ani membaca.','Buku cerita.','Di kamar Ani.']},
+    {q:'Lengkapi kalimat: Ibu berpesan agar aku ...',a:'belajar dengan rajin.',w:['malas-malasan.','marah ke teman.','bermain terus.']},
+    {q:'Pilihlah kalimat efektif yang benar!',a:'Kami pergi ke sekolah bersama-sama.',w:['Kami pergi ke sekolah bersama-sama-sama.','Kami-kami pergi ke sekolah.','Sekolah kami pergi bersama.']},
+    {q:'Lengkapi kalimat: Dodi sangat gembira karena ...',a:'ia mendapat hadiah sepeda baru.',w:['ia sakit perut.','ia dimarahi guru.','ia kehilangan buku.']},
+    {q:'Pilihlah kalimat yang menggunakan kata depan yang tepat!',a:'Ibu pergi ke pasar.',w:['Ibu pergi di pasar.','Ibu pergi pada pasar.','Ibu pergi dari pasar.']},
+    {q:'Lengkapi kalimat: Kakak membeli obat ... apotek.',a:'di',w:['ke','dari','pada']},
+    {q:'Pilihlah kalimat tanya yang benar!',a:'Siapa nama gurumu?',w:['Siapa nama gurumu.','Siapa nama gurumu!','siapa nama gurumu?']},
+    {q:'Lengkapi kalimat: Ayah bekerja ... pagi ... sore.',a:'dari, sampai',w:['di, ke','pada, di','ke, dari']}
+  ],
+  sulit: [
+    {q:'Pilihlah kalimat yang paling efektif!',a:'Kami berdiskusi untuk menyelesaikan masalah itu.',w:['Kami berdiskusi demi untuk menyelesaikan masalah itu.','Kami berdiskusi dalam rangka untuk menyelesaikan masalah itu.','Kami berdiskusi bertujuan untuk menyelesaikan masalah itu.']},
+    {q:'Lengkapi kalimat majemuk: Ayah membaca koran, ...',a:'sedangkan ibu memasak di dapur.',w:['sementara ibu memasak, ibu memasak.','tetapi ibu memasak di dapur.','sebab ibu memasak di dapur.']},
+    {q:'Pilihlah kalimat yang menggunakan tanda baca yang tepat!',a:'"Ayo belajar dengan rajin," kata Bu Guru.',w:['"Ayo belajar dengan rajin" kata Bu Guru.','"Ayo belajar dengan rajin", kata Bu Guru.','Ayo belajar dengan rajin, kata Bu Guru.']},
+    {q:'Pilihlah kalimat yang tidak efektif!',a:'Para siswa-siswa semua masuk ke dalam kelas.',w:['Para siswa masuk ke kelas.','Semua siswa masuk kelas.','Siswa-siswa masuk ke kelas.']},
+    {q:'Lengkapi kalimat: Ketika hujan turun dengan deras, ...',a:'jalanan menjadi basah dan licin.',w:['kami tetap bermain pasir.','jalanan menjadi kering.','matahari bersinar terang.']},
+    {q:'Pilihlah kata penghubung yang tepat: Dia rajin belajar, ... nilainya bagus.',a:'sehingga',w:['tetapi','melainkan','sebab']},
+    {q:'Lengkapi kalimat: Meskipun lelah, ...',a:'ibu tetap bekerja dengan rajin.',w:['ibu berhenti bekerja.','ibu langsung pulang.','ibu marah-marah.']},
+    {q:'Pilihlah kalimat majemuk yang benar!',a:'Rina rajin belajar sehingga nilainya bagus.',w:['Rina rajin belajar tetapi nilainya bagus.','Rina rajin belajar atau nilainya bagus.','Rina rajin belajar melainkan nilainya bagus.']},
+    {q:'Lengkapi kalimat: Baik siswa maupun guru ...',a:'harus menjaga kebersihan sekolah.',w:['boleh membuang sampah.','tidak perlu peduli.','harus merusak fasilitas.']},
+    {q:'Pilihlah kalimat dengan konjungsi yang tepat!',a:'Bukan hanya rajin, tetapi juga disiplin.',w:['Bukan hanya rajin, dan juga disiplin.','Bukan hanya rajin, atau juga disiplin.','Bukan hanya rajin, melainkan juga disiplin.']},
+    {q:'Pilihlah kalimat pasif yang benar!',a:'Buku itu sudah dibaca oleh Rina.',w:['Buku itu sudah membaca Rina.','Rina sudah dibaca buku itu.','Buku sudah dibaca oleh.']},
+    {q:'Pilihlah kalimat dengan kata depan yang tepat!',a:'Kami berangkat dari rumah menuju sekolah.',w:['Kami berangkat di rumah menuju sekolah.','Kami berangkat pada rumah menuju sekolah.','Kami berangkat ke rumah menuju sekolah.']}
+  ]
+};
+
+const ENG_VOCAB = {
+  mudah: [
+    ['buku','book'],['pensil','pencil'],['meja','table'],['kursi','chair'],
+    ['apel','apple'],['bola','ball'],['bunga','flower'],['rumah','house'],
+    ['air','water'],['nasi','rice'],['kucing','cat'],['anjing','dog'],
+    ['burung','bird'],['ikan','fish'],['mata','eye'],['tangan','hand'],
+    ['kaki','foot'],['kepala','head'],['mulut','mouth'],['hidung','nose'],
+    ['roti','bread'],['susu','milk'],['telur','egg'],['pisang','banana'],
+    ['mangga','mango']
+  ],
+  normal: [
+    ['sekolah','school'],['guru','teacher'],['murid','student'],['kelas','class'],
+    ['perpustakaan','library'],['lapangan','field'],['kantin','canteen'],['seragam','uniform'],
+    ['sepatu','shoes'],['tas','bag'],['buku tulis','notebook'],['papan tulis','whiteboard'],
+    ['jam dinding','clock'],['pintu','door'],['jendela','window'],['lantai','floor'],
+    ['atap','roof'],['dinding','wall'],['peta','map'],['gunting','scissors'],
+    ['penggaris','ruler'],['penghapus','eraser'],['pensil warna','crayon'],['topi','hat'],
+    ['kaus kaki','socks']
+  ],
+  sulit: [
+    ['kemerdekaan','independence'],['pahlawan','hero'],['budaya','culture'],
+    ['pemerintah','government'],['masyarakat','society'],['lingkungan','environment'],
+    ['pendidikan','education'],['kesehatan','health'],['kesempatan','opportunity'],
+    ['pengalaman','experience'],['pengetahuan','knowledge'],['keterampilan','skill'],
+    ['keberanian','courage'],['kebijaksanaan','wisdom'],['kejujuran','honesty'],
+    ['tanggung jawab','responsibility'],['kepemimpinan','leadership'],
+    ['kerja sama','teamwork'],['kemampuan','ability'],['kreativitas','creativity'],
+    ['kebersihan','cleanliness'],['keteraturan','orderliness'],
+    ['kedisiplinan','discipline'],['kepercayaan','trust'],['kesabaran','patience']
+  ]
+};
+const ENG_GREETING = {
+  mudah: [
+    ['Good morning','Selamat pagi'],['Good night','Selamat malam'],
+    ['Good afternoon','Selamat siang'],['Good evening','Selamat sore'],
+    ['Goodbye','Selamat tinggal'],['Hello','Halo'],
+    ['Thank you','Terima kasih'],['Sorry','Maaf'],
+    ['How are you?','Apa kabar?'],['What is your name?','Siapa namamu?'],
+    ['Nice to meet you','Senang bertemu denganmu'],['Please','Tolong'],
+    ['Excuse me','Permisi'],["You're welcome",'Dengan senang hati'],
+    ['Welcome','Selamat datang'],['See you later','Sampai jumpa'],
+    ['Good luck','Semoga berhasil'],['Congratulations','Selamat'],
+    ["I'm fine, thank you",'Saya baik, terima kasih'],
+    ['How old are you?','Berapa umurmu?'],['Where do you live?','Di mana kamu tinggal?'],
+    ['My name is','Nama saya'],['Take care','Hati-hati'],
+    ['Have a nice day','Semoga harimu menyenangkan'],
+    ['See you tomorrow','Sampai jumpa besok']
+  ],
+  normal: [
+    ['How do you do?','Apa kabar?'],['Good luck with your exam','Semoga sukses ujianmu'],
+    ['Happy birthday','Selamat ulang tahun'],['Merry Christmas','Selamat Natal'],
+    ['Happy New Year','Selamat Tahun Baru'],['Thank you very much','Terima kasih banyak'],
+    ["I'm sorry to hear that",'Saya turut prihatin'],
+    ['Could you help me?','Bisakah kamu membantuku?'],
+    ['Excuse me, where is the toilet?','Permisi, di mana toilet?'],
+    ['Nice to see you again','Senang bertemu lagi'],
+    ['Long time no see','Lama tidak bertemu'],
+    ['How was your day?','Bagaimana harimu?'],
+    ['See you next time','Sampai jumpa lain kali'],
+    ['Have a good trip','Semoga perjalananmu menyenangkan'],
+    ['Get well soon','Semoga lekas sembuh'],['Best wishes','Doa terbaik'],
+    ['Well done','Kerja bagus'],['Good job','Kerja bagus'],
+    ['Of course','Tentu saja'],['Never mind','Tidak apa-apa'],
+    ["I don't know",'Saya tidak tahu'],['I agree','Saya setuju'],
+    ['I disagree','Saya tidak setuju'],['Just a moment','Tunggu sebentar'],
+    ['Welcome home','Selamat datang di rumah']
+  ],
+  sulit: [
+    ['May I introduce myself?','Bolehkah saya memperkenalkan diri?'],
+    ['It is my pleasure to meet you','Senang bertemu denganmu'],
+    ['I would like to apologize','Saya ingin meminta maaf'],
+    ['Please accept my apology','Mohon terima permintaan maaf saya'],
+    ['Thank you for your kindness','Terima kasih atas kebaikanmu'],
+    ['I look forward to hearing from you','Saya menunggu kabar darimu'],
+    ['Would you mind helping me?','Maukah kamu membantuku?'],
+    ['Could you please repeat that?','Bisakah kamu mengulanginya?'],
+    ['I am very grateful for your help','Saya sangat berterima kasih atas bantuanmu'],
+    ['It was nice talking to you','Senang berbicara denganmu'],
+    ['Have a safe journey','Semoga perjalananmu aman'],
+    ['Best regards','Salam hormat'],['Yours sincerely','Hormat saya'],
+    ['I am looking forward to seeing you','Saya menantikan pertemuan kita'],
+    ['Give my best regards to your family','Sampaikan salamku untuk keluargamu'],
+    ['Congratulations on your achievement','Selamat atas pencapaianmu'],
+    ['I wish you all the best','Semoga yang terbaik untukmu'],
+    ['Sorry for the inconvenience','Maaf atas ketidaknyamanannya'],
+    ['Thank you in advance','Terima kasih sebelumnya'],
+    ['Please forgive me','Tolong maafkan saya'],
+    ['May I ask you something?','Bolehkah saya bertanya sesuatu?'],
+    ['Excuse me for interrupting','Maaf mengganggu'],
+    ['Would you like some help?','Maukah kamu dibantu?'],
+    ['I appreciate your help','Saya menghargai bantuanmu'],
+    ['Thank you for your time','Terima kasih atas waktumu']
+  ]
+};
+const ENG_NUMBERS = {
+  mudah: [[1,'one'],[2,'two'],[3,'three'],[4,'four'],[5,'five'],[6,'six'],[7,'seven'],[8,'eight'],[9,'nine'],[10,'ten'],
+          [11,'eleven'],[12,'twelve'],[13,'thirteen'],[14,'fourteen'],[15,'fifteen'],
+          [16,'sixteen'],[17,'seventeen'],[18,'eighteen'],[19,'nineteen'],[20,'twenty']],
+  normal: [[1,'one'],[2,'two'],[3,'three'],[4,'four'],[5,'five'],[6,'six'],[7,'seven'],[8,'eight'],[9,'nine'],[10,'ten'],
+           [11,'eleven'],[12,'twelve'],[13,'thirteen'],[14,'fourteen'],[15,'fifteen'],
+           [20,'twenty'],[30,'thirty'],[40,'forty'],[50,'fifty'],[60,'sixty'],
+           [70,'seventy'],[80,'eighty'],[90,'ninety'],[100,'one hundred'],[0,'zero']],
+  sulit: [[21,'twenty-one'],[25,'twenty-five'],[36,'thirty-six'],[47,'forty-seven'],[58,'fifty-eight'],
+          [69,'sixty-nine'],[73,'seventy-three'],[84,'eighty-four'],[95,'ninety-five'],
+          [100,'one hundred'],[200,'two hundred'],[350,'three hundred fifty'],[500,'five hundred'],
+          [750,'seven hundred fifty'],[1000,'one thousand'],[1500,'one thousand five hundred'],
+          [2000,'two thousand'],[5000,'five thousand'],[10000,'ten thousand'],[100000,'one hundred thousand'],
+          [1000000,'one million'],[13,'thirteen'],[22,'twenty-two'],[48,'forty-eight'],[99,'ninety-nine']]
+};
+const ENG_COLORS = {
+  mudah: [['merah','red'],['biru','blue'],['kuning','yellow'],['hijau','green'],['hitam','black'],
+          ['putih','white'],['jingga','orange'],['ungu','purple'],['pink','pink'],['coklat','brown'],
+          ['abu-abu','gray'],['emas','gold'],['perak','silver'],['merah muda','pink'],
+          ['biru tua','navy'],['hijau muda','light green'],['merah tua','dark red'],
+          ['kuning muda','light yellow'],['biru langit','sky blue'],['hijau rumput','grass green']],
+  normal: [['merah','red'],['biru','blue'],['kuning','yellow'],['hijau','green'],['hitam','black'],
+           ['putih','white'],['oranye','orange'],['ungu','purple'],['merah muda','pink'],['coklat','brown'],
+           ['abu-abu','gray'],['emas','gold'],['perak','silver'],['biru tua','navy'],
+           ['hijau muda','light green'],['merah tua','dark red'],['kuning muda','light yellow'],
+           ['biru langit','sky blue'],['hijau rumput','grass green'],['ungu tua','dark purple'],
+           ['hitam pekat','jet black'],['putih tulang','ivory'],['merah menyala','bright red'],
+           ['coklat tua','dark brown'],['biru pastel','pastel blue']],
+  sulit: [['merah','red'],['biru','blue'],['kuning','yellow'],['hijau','green'],['hitam','black'],
+          ['putih','white'],['oranye','orange'],['ungu','purple'],['pink','pink'],['coklat','brown'],
+          ['abu-abu','gray'],['emas','gold'],['perak','silver'],['toska','turquoise'],['marun','maroon'],
+          ['lavender','lavender'],['magenta','magenta'],['cyan','cyan'],['beige','beige'],['olive','olive'],
+          ['merah bata','brick red'],['hijau zamrud','emerald green'],['biru kobalt','cobalt blue'],
+          ['ungu lavender','lavender purple'],['kuning keemasan','golden yellow']]
+};
+const ENG_FAMILY = {
+  mudah: [
+    ['ayah','father'],['ibu','mother'],['kakak laki-laki','older brother'],
+    ['kakak perempuan','older sister'],['adik laki-laki','younger brother'],
+    ['adik perempuan','younger sister'],['kakek','grandfather'],['nenek','grandmother'],
+    ['paman','uncle'],['bibi','aunt'],['sepupu','cousin'],
+    ['anak laki-laki','son'],['anak perempuan','daughter'],
+    ['keluarga','family'],['orang tua','parents'],
+    ['saudara','sibling'],['anak','child'],['bayi','baby'],
+    ['suami','husband'],['istri','wife'],['cucu','grandchild'],
+    ['keponakan','nephew'],['mertua','in-laws'],['ipar','brother-in-law'],
+    ['orang dewasa','adult']
+  ],
+  normal: [
+    ['ayah','father'],['ibu','mother'],['kakak','older sibling'],
+    ['adik','younger sibling'],['kakek','grandfather'],['nenek','grandmother'],
+    ['paman','uncle'],['bibi','aunt'],['sepupu','cousin'],
+    ['anak laki-laki','son'],['anak perempuan','daughter'],
+    ['keluarga','family'],['orang tua','parents'],
+    ['saudara laki-laki','brother'],['saudara perempuan','sister'],
+    ['saudara kandung','sibling'],['anak tunggal','only child'],
+    ['kakek buyut','great grandfather'],['nenek buyut','great grandmother'],
+    ['cucu','grandchild'],['keponakan laki-laki','nephew'],
+    ['keponakan perempuan','niece'],['mertua laki-laki','father-in-law'],
+    ['mertua perempuan','mother-in-law'],['saudara ipar','in-law']
+  ],
+  sulit: [
+    ['ayah','father'],['ibu','mother'],['kakek','grandfather'],
+    ['nenek','grandmother'],['buyut','great grandparent'],
+    ['paman','uncle'],['bibi','aunt'],['sepupu','cousin'],
+    ['keponakan','nephew'],['keponakan perempuan','niece'],
+    ['mertua','in-laws'],['menantu','son-in-law'],
+    ['menantu perempuan','daughter-in-law'],['ipar','in-law'],
+    ['anak tunggal','only child'],['anak kembar','twin'],
+    ['anak angkat','adopted child'],['orang tua angkat','adoptive parent'],
+    ['saudara tiri','step-sibling'],['ayah tiri','stepfather'],
+    ['ibu tiri','stepmother'],['saudara sepupu','cousin'],
+    ['kakek dari ibu','maternal grandfather'],['kakek dari ayah','paternal grandfather'],
+    ['kerabat','relative']
+  ]
+};
+const ENG_ANIMAL = {
+  mudah: [
+    ['kucing','cat'],['anjing','dog'],['burung','bird'],['ikan','fish'],
+    ['sapi','cow'],['kambing','goat'],['ayam','chicken'],['bebek','duck'],
+    ['kuda','horse'],['gajah','elephant'],['harimau','tiger'],['singa','lion'],
+    ['monyet','monkey'],['kelinci','rabbit'],['tikus','mouse'],['ular','snake'],
+    ['katak','frog'],['kupu-kupu','butterfly'],['lebah','bee'],['semut','ant'],
+    ['cicak','lizard'],['kura-kura','turtle'],['hiu','shark'],['paus','whale'],
+    ['lumba-lumba','dolphin']
+  ],
+  normal: [
+    ['kucing','cat'],['anjing','dog'],['burung','bird'],['ikan','fish'],
+    ['sapi','cow'],['kerbau','buffalo'],['kambing','goat'],['domba','sheep'],
+    ['ayam','chicken'],['bebek','duck'],['angsa','goose'],['kuda','horse'],
+    ['keledai','donkey'],['gajah','elephant'],['harimau','tiger'],['singa','lion'],
+    ['macan tutul','leopard'],['serigala','wolf'],['rubah','fox'],['monyet','monkey'],
+    ['orangutan','orangutan'],['kelinci','rabbit'],['tikus','mouse'],['landak','hedgehog'],
+    ['kangguru','kangaroo']
+  ],
+  sulit: [
+    ['gurita','octopus'],['ubur-ubur','jellyfish'],['bintang laut','starfish'],
+    ['kepiting','crab'],['udang','shrimp'],['lobster','lobster'],['kerang','clam'],
+    ['penguin','penguin'],['beruang kutub','polar bear'],['anjing laut','seal'],
+    ['paus biru','blue whale'],['hiu putih','great white shark'],
+    ['elang','eagle'],['burung hantu','owl'],['merak','peacock'],
+    ['kakatua','parrot'],['merpati','dove'],['bangau','stork'],
+    ['buaya','crocodile'],['komodo','komodo dragon'],['bunglon','chameleon'],
+    ['tarantula','tarantula'],['kalajengking','scorpion'],['lipan','centipede'],
+    ['kumbang','beetle']
+  ]
+};
+const ENG_GRAMMAR = {
+  mudah: [
+    {q:'I ___ a student.', a:'am', w:['is','are','be']},
+    {q:'She ___ my sister.', a:'is', w:['am','are','be']},
+    {q:'They ___ my friends.', a:'are', w:['am','is','be']},
+    {q:'This ___ a book.', a:'is', w:['am','are','be']},
+    {q:'These ___ apples.', a:'are', w:['am','is','be']},
+    {q:'He ___ tall.', a:'is', w:['am','are','be']},
+    {q:'We ___ in class.', a:'are', w:['am','is','be']},
+    {q:'___ is my mother.', a:'She', w:['He','It','They']},
+    {q:'___ are my friends.', a:'They', w:['He','She','It']},
+    {q:'___ is a cat.', a:'It', w:['He','She','They']},
+    {q:'I ___ a book.', a:'have', w:['has','is','am']},
+    {q:'She ___ a pen.', a:'has', w:['have','is','are']},
+    {q:'___ is your name?', a:'What', w:['Who','Where','When']},
+    {q:'___ is your teacher?', a:'Who', w:['What','Where','When']},
+    {q:'___ are you from?', a:'Where', w:['What','Who','When']},
+    {q:'___ old are you?', a:'How', w:['What','Who','Where']},
+    {q:'I ___ a boy.', a:'am', w:['is','are','be']},
+    {q:'You ___ my friend.', a:'are', w:['am','is','be']},
+    {q:'It ___ a dog.', a:'is', w:['am','are','be']},
+    {q:'My father ___ a doctor.', a:'is', w:['am','are','be']},
+    {q:'My mother ___ a teacher.', a:'is', w:['am','are','be']},
+    {q:'My friends ___ kind.', a:'are', w:['am','is','be']},
+    {q:'The cat ___ black.', a:'is', w:['am','are','be']},
+    {q:'The books ___ on the table.', a:'are', w:['am','is','be']},
+    {q:'I ___ happy.', a:'am', w:['is','are','be']}
+  ],
+  normal: [
+    {q:'There ___ a book on the table.', a:'is', w:['are','am','be']},
+    {q:'There ___ two cats in the garden.', a:'are', w:['is','am','be']},
+    {q:'I have two ___.', a:'books', w:['book','bookes','bookies']},
+    {q:'She has three ___.', a:'apples', w:['apple','applees','applies']},
+    {q:'He ___ to school every day.', a:'goes', w:['go','going','gone']},
+    {q:'They ___ football on Sundays.', a:'play', w:['plays','playing','played']},
+    {q:'My sister ___ English very well.', a:'speaks', w:['speak','speaking','spoke']},
+    {q:'___ you like ice cream?', a:'Do', w:['Does','Is','Are']},
+    {q:'___ she like chocolate?', a:'Does', w:['Do','Is','Are']},
+    {q:'I ___ not like coffee.', a:'do', w:['does','is','are']},
+    {q:'She ___ not eat meat.', a:'does', w:['do','is','are']},
+    {q:'A: How are you? B: ___ fine.', a:"I'm", w:["You're","He's","She's"]},
+    {q:'My brother ___ tall.', a:'is', w:['are','am','were']},
+    {q:'The children ___ playing.', a:'are', w:['is','am','was']},
+    {q:'I ___ reading a book now.', a:'am', w:['is','are','were']},
+    {q:'She ___ watching TV.', a:'is', w:['am','are','were']},
+    {q:'We ___ going to the park.', a:'are', w:['am','is','was']},
+    {q:'The elephant is ___ than the cat.', a:'bigger', w:['big','biggest','more big']},
+    {q:'The cheetah is the ___ animal.', a:'fastest', w:['fast','faster','more fast']},
+    {q:'This is ___ apple.', a:'an', w:['a','the','some']},
+    {q:'That is ___ cat.', a:'a', w:['an','the','some']},
+    {q:'I want ___ orange.', a:'an', w:['a','the','some']},
+    {q:'She has ___ umbrella.', a:'an', w:['a','the','some']},
+    {q:'The sun rises in the ___.', a:'east', w:['west','north','south']},
+    {q:'I go to school ___ Monday.', a:'on', w:['in','at','by']}
+  ],
+  sulit: [
+    {q:'I ___ my homework yesterday.', a:'did', w:['do','does','doing']},
+    {q:'She ___ to the market last Sunday.', a:'went', w:['go','goes','going']},
+    {q:'They ___ a movie last night.', a:'watched', w:['watch','watches','watching']},
+    {q:'He ___ his bicycle to school.', a:'rode', w:['ride','rides','riding']},
+    {q:'We ___ in Jakarta last year.', a:'lived', w:['live','lives','living']},
+    {q:"I ___ breakfast at 7 o'clock.", a:'have', w:['has','had','having']},
+    {q:'She ___ already finished her homework.', a:'has', w:['have','is','was']},
+    {q:'They ___ already left the house.', a:'have', w:['has','is','are']},
+    {q:'If it ___ tomorrow, we will stay home.', a:'rains', w:['rain','rained','raining']},
+    {q:'I will call you when I ___ home.', a:'get', w:['got','getting','gets']},
+    {q:'She is the ___ student in the class.', a:'smartest', w:['smart','smarter','most smart']},
+    {q:'This is ___ book I have ever read.', a:'the best', w:['best','better','good']},
+    {q:'He runs ___ than his brother.', a:'faster', w:['fast','fastest','more fast']},
+    {q:'The homework ___ by the students yesterday.', a:'was done', w:['is done','were done','are done']},
+    {q:'The letter ___ by her last week.', a:'was written', w:['is written','were written','are written']},
+    {q:'She said that she ___ tired.', a:'was', w:['is','were','be']},
+    {q:'He asked me if I ___ come.', a:'could', w:['can','will','am']},
+    {q:'My mother is ___ dinner right now.', a:'cooking', w:['cook','cooks','cooked']},
+    {q:'The children ___ playing in the yard.', a:'are', w:['is','am','was']},
+    {q:'I have been ___ English for three years.', a:'studying', w:['study','studied','studies']},
+    {q:'She ___ here since 2020.', a:'has lived', w:['lived','lives','is living']},
+    {q:'The book ___ on the shelf.', a:'is', w:['are','am','were']},
+    {q:'The shoes ___ under the bed.', a:'are', w:['is','am','was']},
+    {q:'I wish I ___ fly.', a:'could', w:['can','will','may']},
+    {q:'By the time we arrived, the show ___.', a:'had started', w:['started','has started','starts']}
+  ]
+};
+
+function makePairQuestion(pairs, r, i){
+  const total=pairs.length;
+  const idx=i%total;
+  const reverse=Math.floor(i/total)%2===1;
+  const [id,en]=pairs[idx];
+  if(reverse){
+    const others=pairs.map(p=>p[0]).filter(x=>x!==id);
+    const shuf=shuffleSeeded(others,r).slice(0,3);
+    const opts=shuffleSeeded([id,...shuf],r);
+    return {kind:'choice',text:`Apa bahasa Indonesia dari "<b>${en}</b>"?`,options:opts,answer:opts.indexOf(id)};
+  }else{
+    const others=pairs.map(p=>p[1]).filter(x=>x!==en);
+    const shuf=shuffleSeeded(others,r).slice(0,3);
+    const opts=shuffleSeeded([en,...shuf],r);
+    return {kind:'choice',text:`Apa bahasa Inggris dari "<b>${id}</b>"?`,options:opts,answer:opts.indexOf(en)};
+  }
+}
+
+function genENGVocab(level,r,i){
+  return makePairQuestion(ENG_VOCAB[level], r, i);
+}
+function genENGGreeting(level,r,i){
+  return makePairQuestion(ENG_GREETING[level], r, i);
+}
+function genENGFamily(level,r,i){
+  return makePairQuestion(ENG_FAMILY[level], r, i);
+}
+function genENGAnimal(level,r,i){
+  return makePairQuestion(ENG_ANIMAL[level], r, i);
+}
+function genENGNumber(level,r,i){
+  const nums=ENG_NUMBERS[level];
+  const cols=ENG_COLORS[level];
+  const items=[];
+  nums.forEach(([a,b])=>items.push({type:'num',id:a,en:b}));
+  cols.forEach(([a,b])=>items.push({type:'col',id:a,en:b}));
+  const idx=i%items.length;
+  const reverse=Math.floor(i/items.length)%2===1;
+  const item=items[idx];
+  if(item.type==='num'){
+    if(reverse){
+      const others=nums.map(p=>p[0]).filter(x=>x!==item.id);
+      const shuf=shuffleSeeded(others,r).slice(0,3);
+      const opts=shuffleSeeded([String(item.id),...shuf.map(String)],r);
+      return {kind:'choice',text:`Angka "<b>${item.en}</b>" dalam bahasa Indonesia adalah...`,options:opts,answer:opts.indexOf(String(item.id))};
+    }else{
+      const others=nums.map(p=>p[1]).filter(x=>x!==item.en);
+      const shuf=shuffleSeeded(others,r).slice(0,3);
+      const opts=shuffleSeeded([item.en,...shuf],r);
+      return {kind:'choice',text:`Angka <b>${item.id}</b> dalam bahasa Inggris adalah...`,options:opts,answer:opts.indexOf(item.en)};
+    }
+  }else{
+    if(reverse){
+      const others=cols.map(p=>p[0]).filter(x=>x!==item.id);
+      const shuf=shuffleSeeded(others,r).slice(0,3);
+      const opts=shuffleSeeded([item.id,...shuf],r);
+      return {kind:'choice',text:`Warna "<b>${item.en}</b>" dalam bahasa Indonesia adalah...`,options:opts,answer:opts.indexOf(item.id)};
+    }else{
+      const others=cols.map(p=>p[1]).filter(x=>x!==item.en);
+      const shuf=shuffleSeeded(others,r).slice(0,3);
+      const opts=shuffleSeeded([item.en,...shuf],r);
+      return {kind:'choice',text:`Warna "<b>${item.id}</b>" dalam bahasa Inggris adalah...`,options:opts,answer:opts.indexOf(item.en)};
+    }
+  }
+}
+function genENGGrammar(level,r,i){
+  const pool=ENG_GRAMMAR[level];
+  const idx=i%pool.length;
+  const item=pool[idx];
+  const shuf=shuffleSeeded(item.w,r).slice(0,3);
+  const opts=shuffleSeeded([item.a,...shuf],r);
+  return {kind:'choice',text:`Lengkapi kalimat berikut: "<b>${item.q}</b>"`,options:opts,answer:opts.indexOf(item.a)};
+}
+
+function genBISinonim(level,r,i){
+  const pairs=BI_SINONIM[level];
+  const [kata,benar]=pairs[i % pairs.length];
+  const others=[...new Set(pairs.map(p=>p[1]))].filter(w=>w!==benar);
+  const dist=shuffleSeeded(others,r).slice(0,3);
+  const opts=shuffleSeeded([benar,...dist],r);
+  return {kind:'choice',text:`Sinonim (persamaan kata) dari "<b>${kata}</b>" adalah...`,options:opts,answer:opts.indexOf(benar)};
+}
+function genBIAntonim(level,r,i){
+  const pairs=BI_ANTONIM[level];
+  const [kata,benar]=pairs[i % pairs.length];
+  const others=[...new Set(pairs.map(p=>p[1]))].filter(w=>w!==benar);
+  const dist=shuffleSeeded(others,r).slice(0,3);
+  const opts=shuffleSeeded([benar,...dist],r);
+  return {kind:'choice',text:`Antonim (lawan kata) dari "<b>${kata}</b>" adalah...`,options:opts,answer:opts.indexOf(benar)};
+}
+function genBIKataBaku(level,r,i){
+  const pairs=BI_KATA_BAKU[level];
+  const p=pairs[i % pairs.length];
+  const others=pairs.filter(x=>x.baku!==p.baku).map(x=>x.salah);
+  const dist=shuffleSeeded([...new Set(others)],r).slice(0,3);
+  const opts=shuffleSeeded([p.baku,...dist],r);
+  return {kind:'choice',text:`Manakah penulisan <b>kata baku</b> yang benar?`,options:opts,answer:opts.indexOf(p.baku)};
+}
+function genBIMembaca(level,r,i){
+  const pool=BI_MEMBACA[level];
+  const item=pool[i % pool.length];
+  const dist=shuffleSeeded(item.w,r).slice(0,3);
+  const opts=shuffleSeeded([item.a,...dist],r);
+  return {kind:'choice',text:`<div style="font-size:.92rem;line-height:1.55;margin-bottom:8px;">${item.text}</div><b>${item.q}</b>`,options:opts,answer:opts.indexOf(item.a)};
+}
+function genBITandaBaca(level,r,i){
+  const pool=BI_TANDA_BACA[level];
+  const item=pool[i % pool.length];
+  const dist=shuffleSeeded(item.w,r).slice(0,3);
+  const opts=shuffleSeeded([item.a,...dist],r);
+  return {kind:'choice',text:`<div style="font-size:.95rem;line-height:1.55;margin-bottom:8px;">"${item.text}"</div><b>${item.q}</b>`,options:opts,answer:opts.indexOf(item.a)};
+}
+function genBIKalimat(level,r,i){
+  const pool=BI_KALIMAT[level];
+  const item=pool[i % pool.length];
+  const dist=shuffleSeeded(item.w,r).slice(0,3);
+  const opts=shuffleSeeded([item.a,...dist],r);
+  return {kind:'choice',text:`<b>${item.q}</b>`,options:opts,answer:opts.indexOf(item.a)};
+}
+function generateBI(type,level,r,i){
+  switch(type){
+    case 'membaca': return genBIMembaca(level,r,i);
+    case 'sinonim': return genBISinonim(level,r,i);
+    case 'antonim': return genBIAntonim(level,r,i);
+    case 'katabaku': return genBIKataBaku(level,r,i);
+    case 'tandabaca': return genBITandaBaca(level,r,i);
+    case 'kalimat': return genBIKalimat(level,r,i);
+  }
+}
+function generateENG(type,level,r,i){
+  switch(type){
+    case 'vocab': return genENGVocab(level,r,i);
+    case 'greeting': return genENGGreeting(level,r,i);
+    case 'number': return genENGNumber(level,r,i);
+    case 'family': return genENGFamily(level,r,i);
+    case 'animal': return genENGAnimal(level,r,i);
+    case 'grammar': return genENGGrammar(level,r,i);
+  }
+}
+
+const BANK={};
+function getBank(type,level,mapel){
+  mapel=mapel||'mtk';
+  const key=mapel+'-'+type+'-'+level;
+  if(BANK[key]) return BANK[key];
+  const r=mulberry32(seedFrom(key));
+  const target = mapel==='mtk' ? 100 : 50;
+  const seen=new Set();
+  const arr=[];
+  for(let i=0; arr.length<target && i<target*8; i++){
+    let q;
+    if(mapel==='mtk') q=generateMath(type,level,r,i);
+    else if(mapel==='bi') q=generateBI(type,level,r,i);
+    else q=generateENG(type,level,r,i);
+    if(!q) continue;
+    const sig=qSignature(q);
+    if(!seen.has(sig)){
+      seen.add(sig);
+      arr.push(q);
+    }
+  }
+  BANK[key]=arr;
+  return arr;
+}
+
+function dedupQuestions(qs){
+  const seen=new Set();
+  const out=[];
+  for(const q of qs){
+    const sig=qSignature(q);
+    if(!seen.has(sig)){
+      seen.add(sig);
+      out.push(q);
+    }
+  }
+  return out;
+}
+
+function generateUlanganMTK(kelas){
+  const pool = kelas === '1-3'
+    ? [['cerita','mudah'],['tambah','mudah'],['kurang','mudah'],['kali','mudah'],['bagi','mudah'],
+       ['cerita','normal'],['tambah','normal'],['kurang','normal'],['kali','normal']]
+    : [['cerita','normal'],['tambah','normal'],['kurang','normal'],['kali','normal'],['bagi','normal'],
+       ['cerita','sulit'],['tambah','sulit'],['kurang','sulit'],['kali','sulit'],['bagi','sulit'],
+       ['akar','normal'],['akar','sulit']];
+  const sessionSeed = (Date.now() ^ Math.floor(Math.random()*0x7fffffff)) >>> 0;
+  const r = mulberry32(sessionSeed);
+  const qs=[];
+  const usedSigs=new Set();
+  let attempts=0;
+  while(qs.length < 30 && attempts < 800){
+    attempts++;
+    const t = pool[Math.floor(r()*pool.length)];
+    const q = generateMath(t[0], t[1], r, Math.floor(r()*10000));
+    const sig = qSignature(q);
+    if(!usedSigs.has(sig)){
+      usedSigs.add(sig);
+      qs.push(q);
+    }
+  }
+  return qs;
+}
+function generateUlanganBI(kelas){
+  const types=['membaca','sinonim','antonim','katabaku','tandabaca','kalimat'];
+  const sessionSeed = (Date.now() ^ Math.floor(Math.random()*0x7fffffff)) >>> 0;
+  const r = mulberry32(sessionSeed);
+  const qs=[];
+  const usedSigs=new Set();
+  let attempts=0;
+  while(qs.length < 30 && attempts < 800){
+    attempts++;
+    const t = types[Math.floor(r()*types.length)];
+    const lv = kelas==='1-3' ? (r()<0.5?'mudah':'normal') : (r()<0.35?'sulit':'normal');
+    const q = generateBI(t,lv,r,Math.floor(r()*10000));
+    const sig = qSignature(q);
+    if(!usedSigs.has(sig)){
+      usedSigs.add(sig);
+      qs.push(q);
+    }
+  }
+  return qs;
+}
+function generateUlanganENG(kelas){
+  const types=['vocab','greeting','number','family','animal','grammar'];
+  const sessionSeed = (Date.now() ^ Math.floor(Math.random()*0x7fffffff)) >>> 0;
+  const r = mulberry32(sessionSeed);
+  const qs=[];
+  const usedSigs=new Set();
+  let attempts=0;
+  while(qs.length < 30 && attempts < 800){
+    attempts++;
+    const t = types[Math.floor(r()*types.length)];
+    const lv = kelas==='1-3' ? (r()<0.5?'mudah':'normal') : (r()<0.35?'sulit':'normal');
+    const q = generateENG(t,lv,r,Math.floor(r()*10000));
+    const sig = qSignature(q);
+    if(!usedSigs.has(sig)){
+      usedSigs.add(sig);
+      qs.push(q);
+    }
+  }
+  return qs;
+}
+
+const MTK_TYPES=[
+  {id:'cerita', icon:'fa-book-open',            name:'Soal Cerita',  desc:'Baca & hitung',     color:'#ffd93d'},
+  {id:'tambah', icon:'fa-plus',                 name:'Pertambahan',  desc:'Bersusun ke bawah', color:'#8ee36b'},
+  {id:'kurang', icon:'fa-minus',                name:'Pengurangan',  desc:'Bersusun ke bawah', color:'#ffb27a'},
+  {id:'kali',   icon:'fa-xmark',                name:'Perkalian',    desc:'Bersusun ke bawah', color:'#8ad4ff'},
+  {id:'bagi',   icon:'fa-divide',               name:'Pembagian',    desc:'Bagi rata',         color:'#ffa8d4'},
+  {id:'akar',   icon:'fa-square-root-variable', name:'Akar Kuadrat', desc:'√ bilangan',        color:'#c9a8ff'}
+];
+const BI_TYPES=[
+  {id:'membaca',  icon:'fa-book-open-reader', name:'Membaca',    desc:'Pahami teks',       color:'#ffd93d'},
+  {id:'sinonim',  icon:'fa-equals',           name:'Sinonim',    desc:'Persamaan kata',    color:'#8ee36b'},
+  {id:'antonim',  icon:'fa-not-equal',        name:'Antonim',    desc:'Lawan kata',        color:'#ffb27a'},
+  {id:'katabaku', icon:'fa-spell-check',      name:'Kata Baku',  desc:'Ejaan baku',        color:'#8ad4ff'},
+  {id:'tandabaca',icon:'fa-quote-right',      name:'Tanda Baca', desc:'Pungtuasi tepat',   color:'#ffa8d4'},
+  {id:'kalimat',  icon:'fa-pen-fancy',        name:'Kalimat',    desc:'Susun & lengkapi',  color:'#c9a8ff'}
+];
+const ENG_TYPES=[
+  {id:'vocab',    icon:'fa-spell-check',    name:'Vocabulary', desc:'Kosakata',        color:'#ffd93d'},
+  {id:'greeting', icon:'fa-handshake',      name:'Greetings',  desc:'Sapaan & ungkapan',color:'#8ee36b'},
+  {id:'number',   icon:'fa-hashtag',        name:'Numbers & Colors', desc:'Angka & warna', color:'#ffb27a'},
+  {id:'family',   icon:'fa-people-group',   name:'Family',     desc:'Keluarga',        color:'#8ad4ff'},
+  {id:'animal',   icon:'fa-paw',            name:'Animals',    desc:'Hewan',           color:'#ffa8d4'},
+  {id:'grammar',  icon:'fa-language',       name:'Grammar',    desc:'Tata bahasa',     color:'#c9a8ff'}
+];
+const LEVEL_INFO={
+  mudah :{label:'MUDAH', note:'Level MUDAH cocok untuk kelas 1 – 2 SD',  color:'#31d17a'},
+  normal:{label:'NORMAL',note:'Level NORMAL cocok untuk kelas 3 – 4 SD', color:'#3d9bff'},
+  sulit :{label:'SULIT', note:'Level SULIT cocok untuk kelas 5 – 6 SD',  color:'#ff4b4b'}
+};
+
+const HEART_MAX = 10;
+const HEART_REGEN_MS = 3 * 60 * 1000;
+const CHECKIN_CYCLE = 7;
+
+const state={
+  level:'mudah',
+  mapel:'mtk',
+  type:null,
+  questions:[],
+  index:0,
+  score:0,
+  input:'',
+  locked:false,
+  sessionKind:'practice',
+  ulanganKelas:null,
+  ulanganMapel:null
+};
+const $ = id=>document.getElementById(id);
+
+let currentUser=null;
+
+function getUsers(){
+  try{ return JSON.parse(localStorage.getItem('mtk_users')||'{}'); }
+  catch(e){ return {}; }
+}
+function saveUsers(u){
+  try{ localStorage.setItem('mtk_users',JSON.stringify(u)); }catch(e){}
+}
+function setSession(name){
+  try{ localStorage.setItem('mtk_session',name); }catch(e){}
+}
+function clearSession(){
+  try{ localStorage.removeItem('mtk_session'); }catch(e){}
+}
+function getSession(){
+  try{ return localStorage.getItem('mtk_session'); }catch(e){ return null; }
+}
+function normName(s){ return s.trim().toLowerCase(); }
+
+function updateProfilUI(){
+  if(!currentUser) return;
+  $('profilNama').textContent=currentUser.nama;
+  $('profilKelas').innerHTML=`<i class="fa-solid fa-graduation-cap"></i> Kelas ${currentUser.kelas}`;
+  $('profilSekolah').innerHTML=`<i class="fa-solid fa-school"></i> ${currentUser.sekolah}`;
+  $('homeGreet').textContent=`Halo, ${currentUser.nama}! 👋`;
+}
+
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('screen-'+name).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  const nav=$('bottomNav');
+  if(name==='quiz' || name==='login'){
+    nav.classList.add('hidden');
+    document.body.classList.add('locked-nav');
+  }else{
+    nav.classList.remove('hidden');
+    document.body.classList.remove('locked-nav');
+    document.querySelectorAll('.nav-btn').forEach(b=>{
+      b.classList.toggle('active', b.dataset.tab===name);
+    });
+  }
+}
+
+function setFieldError(inputId, hintId, msg){
+  const input=$(inputId);
+  const hint=$(hintId);
+  if(msg){
+    input.classList.add('error');
+    hint.classList.add('show');
+    hint.querySelector('span').textContent=msg;
+  }else{
+    input.classList.remove('error');
+    hint.classList.remove('show');
+    hint.querySelector('span').textContent='';
+  }
+}
+function clearErrors(){
+  setFieldError('loginNama','loginHint','');
+  setFieldError('daftarNama','daftarNamaHint','');
+  setFieldError('daftarKelas','daftarKelasHint','');
+  setFieldError('daftarSekolah','daftarSekolahHint','');
+}
+
+document.querySelectorAll('.auth-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const mode=tab.dataset.mode;
+    $('formLogin').style.display = mode==='login' ? 'block' : 'none';
+    $('formDaftar').style.display = mode==='daftar' ? 'block' : 'none';
+    clearErrors();
+  });
+});
+
+$('loginBtn').addEventListener('click',()=>{
+  clearErrors();
+  const nama=$('loginNama').value.trim();
+  if(!nama){ setFieldError('loginNama','loginHint','Nama wajib diisi.'); return; }
+  const users=getUsers();
+  const key=normName(nama);
+  const found=users[key];
+  if(!found){ setFieldError('loginNama','loginHint','Nama tidak ditemukan. Daftar dulu ya!'); return; }
+  currentUser={ nama: found.nama, kelas: found.kelas, sekolah: found.sekolah };
+  setSession(key);
+  showToast(`Selamat datang, ${currentUser.nama}!`);
+  updateProfilUI();
+  loadUserData();
+  showScreen('home');
+});
+
+$('daftarBtn').addEventListener('click',()=>{
+  clearErrors();
+  const nama=$('daftarNama').value.trim();
+  const kelas=$('daftarKelas').value;
+  const sekolah=$('daftarSekolah').value.trim();
+  let ok=true;
+  if(!nama){ setFieldError('daftarNama','daftarNamaHint','Nama wajib diisi.'); ok=false; }
+  else if(nama.length<2){ setFieldError('daftarNama','daftarNamaHint','Nama minimal 2 karakter.'); ok=false; }
+  if(!kelas){ setFieldError('daftarKelas','daftarKelasHint','Pilih kelas dulu.'); ok=false; }
+  if(!sekolah){ setFieldError('daftarSekolah','daftarSekolahHint','Nama sekolah wajib diisi.'); ok=false; }
+  else if(sekolah.length<3){ setFieldError('daftarSekolah','daftarSekolahHint','Nama sekolah minimal 3 karakter.'); ok=false; }
+  if(!ok) return;
+  const users=getUsers();
+  const key=normName(nama);
+  if(users[key]){ setFieldError('daftarNama','daftarNamaHint','Nama ini sudah terdaftar. Coba nama lain.'); return; }
+  users[key]={ nama, kelas, sekolah, createdAt: Date.now() };
+  saveUsers(users);
+  currentUser={ nama, kelas, sekolah };
+  setSession(key);
+  showToast(`Akun berhasil dibuat. Selamat datang, ${nama}!`);
+  updateProfilUI();
+  loadUserData();
+  showScreen('home');
+});
+
+function showToast(msg){
+  const t=$('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(showToast._timer);
+  showToast._timer=setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+function userKey(suffix){
+  if(!currentUser) return null;
+  return 'mtk_'+suffix+'_'+normName(currentUser.nama);
+}
+
+let hearts = HEART_MAX;
+let lastRegenTime = Date.now();
+
+function loadHearts(){
+  hearts = HEART_MAX;
+  lastRegenTime = Date.now();
+  const k = userKey('hearts');
+  if(!k) return;
+  try{
+    const s=JSON.parse(localStorage.getItem(k)||'{}');
+    if(typeof s.hearts==='number') hearts=s.hearts;
+    if(typeof s.lastRegenTime==='number') lastRegenTime=s.lastRegenTime;
+  }catch(e){}
+  tickHearts();
+}
+function saveHearts(){
+  const k = userKey('hearts');
+  if(!k) return;
+  try{ localStorage.setItem(k,JSON.stringify({hearts,lastRegenTime})); }catch(e){}
+}
+function tickHearts(){
+  if(!currentUser) return;
+  if(hearts>=HEART_MAX){
+    lastRegenTime=Date.now();
+  }else{
+    const now=Date.now();
+    const elapsed=now-lastRegenTime;
+    if(elapsed>=HEART_REGEN_MS){
+      const gained=Math.floor(elapsed/HEART_REGEN_MS);
+      hearts=Math.min(HEART_MAX,hearts+gained);
+      lastRegenTime+=gained*HEART_REGEN_MS;
+      if(hearts>=HEART_MAX) lastRegenTime=now;
+      saveHearts();
+    }
+  }
+  renderHeartDisplay();
+}
+function renderHeartDisplay(){
+  const countEl=$('heartCount');
+  const timerEl=$('heartTimer');
+  if(!countEl) return;
+  countEl.textContent=hearts;
+  if(!currentUser){ timerEl.textContent=''; return; }
+  if(hearts>=HEART_MAX){
+    timerEl.textContent='MAX';
+  }else{
+    const remaining=HEART_REGEN_MS-(Date.now()-lastRegenTime);
+    const sec=Math.max(0,Math.ceil(remaining/1000));
+    const m=Math.floor(sec/60);
+    const s=sec%60;
+    timerEl.textContent=`+1 dalam ${m}:${String(s).padStart(2,'0')}`;
+  }
+}
+function consumeHeart(){
+  if(hearts<=0) return false;
+  const wasFull=hearts>=HEART_MAX;
+  hearts--;
+  if(wasFull) lastRegenTime=Date.now();
+  saveHearts();
+  renderHeartDisplay();
+  return true;
+}
+function addHearts(n){
+  const before=hearts;
+  hearts=Math.min(HEART_MAX,hearts+n);
+  if(before>=HEART_MAX) lastRegenTime=Date.now();
+  saveHearts();
+  renderHeartDisplay();
+  return hearts-before;
+}
+
+let checkinData={ day:1, lastDate:null };
+function todayStr(){
+  const d=new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function loadCheckin(){
+  checkinData = { day:1, lastDate:null };
+  const k = userKey('checkin');
+  if(!k) return;
+  try{
+    const s=JSON.parse(localStorage.getItem(k)||'{}');
+    if(typeof s.day==='number') checkinData.day=s.day;
+    if(typeof s.lastDate==='string') checkinData.lastDate=s.lastDate;
+  }catch(e){}
+  const today=todayStr();
+  if(checkinData.lastDate){
+    const last=new Date(checkinData.lastDate+'T00:00:00');
+    const now=new Date(today+'T00:00:00');
+    const diff=Math.floor((now-last)/(24*60*60*1000));
+    if(diff>1){
+      checkinData.day=1;
+      checkinData.lastDate=null;
+      saveCheckin();
+    }
+  }
+}
+function saveCheckin(){
+  const k = userKey('checkin');
+  if(!k) return;
+  try{ localStorage.setItem(k,JSON.stringify(checkinData)); }catch(e){}
+}
+function renderCheckin(){
+  const grid=$('checkinGrid');
+  if(!grid) return;
+  const today=todayStr();
+  const claimedToday=checkinData.lastDate===today;
+  let html='';
+  for(let d=1;d<=CHECKIN_CYCLE;d++){
+    let cls='checkin-day';
+    if(d<checkinData.day) cls+=' done';
+    else if(d===checkinData.day && !claimedToday) cls+=' today';
+    const icon = d<checkinData.day ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-heart"></i>';
+    html+=`<div class="${cls}" data-day="${d}">
+      <div class="cd-num">Hari ${d}</div>
+      <div class="cd-icon">${icon}</div>
+      <div class="cd-count">+${d}</div>
+    </div>`;
+  }
+  grid.innerHTML=html;
+  grid.querySelectorAll('.checkin-day.today').forEach(el=>{
+    el.addEventListener('click',()=>doCheckin(parseInt(el.dataset.day,10)));
+  });
+}
+function doCheckin(day){
+  const today=todayStr();
+  if(checkinData.lastDate===today){ showToast('Kamu sudah check-in hari ini!'); return; }
+  if(day!==checkinData.day){ showToast('Belum waktunya check-in hari ini!'); return; }
+  const gained=addHearts(day);
+  checkinData.lastDate=today;
+  checkinData.day = checkinData.day>=CHECKIN_CYCLE ? 1 : checkinData.day+1;
+  saveCheckin();
+  renderCheckin();
+  if(gained>0) showToast(`Check-in berhasil! +${gained} ❤️`);
+  else showToast('Check-in berhasil! (Hati sudah penuh)');
+}
+
+let stats={ played:0, correct:0, wrong:0 };
+function loadStats(){
+  stats = { played:0, correct:0, wrong:0 };
+  const k = userKey('stats');
+  if(!k){ renderStats(); return; }
+  try{
+    const s=JSON.parse(localStorage.getItem(k)||'{}');
+    if(typeof s.played==='number') stats.played=s.played;
+    if(typeof s.correct==='number') stats.correct=s.correct;
+    if(typeof s.wrong==='number') stats.wrong=s.wrong;
+  }catch(e){}
+  renderStats();
+}
+function saveStats(){
+  const k = userKey('stats');
+  if(!k) return;
+  try{ localStorage.setItem(k,JSON.stringify(stats)); }catch(e){}
+}
+function renderStats(){
+  const total=stats.correct+stats.wrong;
+  const acc=total>0?Math.round(stats.correct/total*100):0;
+  if($('statPlayed')) $('statPlayed').textContent=stats.played;
+  if($('statCorrect')) $('statCorrect').textContent=stats.correct;
+  if($('statWrong')) $('statWrong').textContent=stats.wrong;
+  if($('statAcc')) $('statAcc').textContent=acc+'%';
+}
+
+function loadUserData(){
+  loadHearts();
+  loadCheckin();
+  loadStats();
+  renderCheckin();
+  renderHeartDisplay();
+}
+
+let actx=null;
+function beep(freq,dur,type){
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    const o=actx.createOscillator(), g=actx.createGain();
+    o.type=type||'square';
+    o.frequency.value=freq;
+    o.connect(g); g.connect(actx.destination);
+    g.gain.setValueAtTime(.07,actx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+dur);
+    o.start(); o.stop(actx.currentTime+dur);
+  }catch(e){}
+}
+function playSound(ok){
+  if(ok){ beep(680,.10); setTimeout(()=>beep(1020,.14),95); }
+  else { beep(180,.28,'sawtooth'); }
+}
+
+function renderTypeGrid(){
+  const grid=$('typeGrid');
+  grid.innerHTML='';
+  const types = state.mapel==='mtk' ? MTK_TYPES : state.mapel==='bi' ? BI_TYPES : ENG_TYPES;
+  types.forEach(t=>{
+    const card=document.createElement('button');
+    card.className='type-card';
+    card.style.setProperty('--c',t.color);
+    card.dataset.id=t.id;
+    card.innerHTML=`
+      <span class="icon-wrap"><i class="fa-solid ${t.icon}"></i></span>
+      <span class="tname">${t.name}</span>
+      <span class="tdesc">${t.desc}</span>`;
+    card.addEventListener('click',()=>{
+      document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('sel'));
+      card.classList.add('sel');
+      state.type=t.id;
+      $('startBtn').disabled=false;
+    });
+    grid.appendChild(card);
+  });
+  state.type=null;
+  $('startBtn').disabled=true;
+  const total = state.mapel==='mtk' ? 100 : 50;
+  $('sessionNote').innerHTML=`1 sesi = 10 soal (soal dijamin berbeda) &nbsp;•&nbsp; Tiap jenis punya <b>${total} soal</b> per level`;
+}
+
+document.querySelectorAll('.mapel-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.mapel-btn').forEach(b=>b.classList.remove('sel'));
+    btn.classList.add('sel');
+    state.mapel=btn.dataset.mapel;
+    renderTypeGrid();
+  });
+});
+
+document.querySelectorAll('.level-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('sel'));
+    btn.classList.add('sel');
+    state.level=btn.dataset.level;
+    $('levelNote').textContent=LEVEL_INFO[state.level].note;
+  });
+});
+
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    showScreen(btn.dataset.tab);
+  });
+});
+
+$('goSoalBtn').addEventListener('click',()=>showScreen('soal'));
+
+function pickSession(type,level,mapel){
+  const bank=getBank(type,level,mapel);
+  const seen=new Set();
+  const unique=[];
+  for(const q of bank){
+    const sig=qSignature(q);
+    if(!seen.has(sig)){
+      seen.add(sig);
+      unique.push(q);
+    }
+  }
+  const idx=[...Array(unique.length).keys()];
+  for(let i=idx.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [idx[i],idx[j]]=[idx[j],idx[i]];
+  }
+  return idx.slice(0,10).map(i=>unique[i]);
+}
+
+function startPractice(){
+  if(!state.type){ showToast('Pilih jenis soal dulu ya!'); return; }
+  if(!consumeHeart()){
+    $('heartModalText').textContent='Hati kamu habis. Tunggu beberapa menit untuk hati baru, atau check-in harian untuk bonus hati.';
+    $('heartModal').classList.add('show');
+    return;
+  }
+  state.sessionKind='practice';
+  state.questions=pickSession(state.type,state.level,state.mapel);
+  beginSession();
+}
+
+function startUlangan(kelas,mapel){
+  if(!consumeHeart()){
+    $('heartModalText').textContent='Hati kamu habis. Tunggu beberapa menit untuk hati baru, atau check-in harian untuk bonus hati.';
+    $('heartModal').classList.add('show');
+    return;
+  }
+  state.sessionKind='ulangan';
+  state.ulanganKelas=kelas;
+  state.ulanganMapel=mapel;
+  if(mapel==='mtk') state.questions=generateUlanganMTK(kelas);
+  else if(mapel==='bi') state.questions=generateUlanganBI(kelas);
+  else state.questions=generateUlanganENG(kelas);
+  beginSession();
+}
+
+function beginSession(){
+  state.index=0;
+  state.score=0;
+  state.input='';
+  state.locked=false;
+  showScreen('quiz');
+  renderQuestion();
+  updateHUD();
+}
+
+document.querySelectorAll('.ulangan-card').forEach(card=>{
+  card.addEventListener('click',()=>startUlangan(card.dataset.kelas, card.dataset.mapel));
+});
+
+function verticalHTML(a,b,op,answer){
+  const sa=String(a), sb=String(b), sAns=String(answer);
+  const cols=Math.max(sa.length, sb.length, sAns.length);
+  const padA=cols-sa.length;
+  const padB=cols-sb.length;
+  let scratch='<span class="vcell op"></span>';
+  for(let i=0;i<cols;i++){
+    scratch+=`<span class="vcell"><span class="box scratch" data-type="scratch" data-i="${i}"></span></span>`;
+  }
+  let rowA='<span class="vcell op"></span>';
+  for(let i=0;i<cols;i++){
+    const d=i<padA?'':sa[i-padA];
+    rowA+=`<span class="vcell digit">${d}</span>`;
+  }
+  let rowB=`<span class="vcell op">${op}</span>`;
+  for(let i=0;i<cols;i++){
+    const d=i<padB?'':sb[i-padB];
+    rowB+=`<span class="vcell digit">${d}</span>`;
+  }
+  let ansRow='<span class="vcell op"></span>';
+  for(let i=0;i<cols;i++){
+    ansRow+=`<span class="vcell"><span class="box ans" data-type="ans" data-i="${i}"></span></span>`;
+  }
+  return `<div class="vcalc" id="vcalc">
+    <div class="vrow">${scratch}</div>
+    <div class="vrow">${rowA}</div>
+    <div class="vrow">${rowB}</div>
+    <div class="vline"></div>
+    <div class="vrow">${ansRow}</div>
+  </div>`;
+}
+
+let vBoxes=[];
+let activeBox=null;
+
+function setupVerticalInput(){
+  vBoxes=Array.from(document.querySelectorAll('#vcalc .box'));
+  vBoxes.forEach(box=>{
+    box.addEventListener('click',()=>focusBox(box));
+  });
+  activeBox=null;
+  const firstAns=vBoxes.find(b=>b.dataset.type==='ans' && b.dataset.i==='0');
+  if(firstAns) focusBox(firstAns);
+}
+function focusBox(box){
+  if(activeBox) activeBox.classList.remove('active');
+  activeBox=box;
+  box.classList.add('active');
+}
+function typeDigit(d){
+  if(!activeBox || state.locked) return;
+  activeBox.textContent=d;
+  activeBox.classList.add('filled');
+  const sameType=vBoxes.filter(b=>b.dataset.type===activeBox.dataset.type);
+  const idx=sameType.indexOf(activeBox);
+  if(idx<sameType.length-1) focusBox(sameType[idx+1]);
+}
+function backspaceBox(){
+  if(!activeBox || state.locked) return;
+  if(activeBox.textContent){
+    activeBox.textContent='';
+    activeBox.classList.remove('filled');
+  }else{
+    const sameType=vBoxes.filter(b=>b.dataset.type===activeBox.dataset.type);
+    const idx=sameType.indexOf(activeBox);
+    if(idx>0){
+      focusBox(sameType[idx-1]);
+      sameType[idx-1].textContent='';
+      sameType[idx-1].classList.remove('filled');
+    }
+  }
+}
+function getVerticalAnswer(){
+  const ansBoxes=vBoxes.filter(b=>b.dataset.type==='ans');
+  let str='';
+  ansBoxes.forEach(b=>{ str+=b.textContent||''; });
+  if(str==='') return null;
+  return parseInt(str,10);
+}
+
+const LETTERS=['A','B','C','D'];
+
+function renderQuestion(){
+  const q=state.questions[state.index];
+  const bubble=$('questionBubble');
+  const visual=$('questionVisual');
+  const answerBox=$('answerBox');
+  const optionsBox=$('optionsBox');
+  const keypad=$('keypad');
+
+  bubble.innerHTML='';
+  visual.innerHTML='';
+  $('feedback').innerHTML='';
+  state.input='';
+  state.locked=false;
+  activeBox=null;
+  vBoxes=[];
+
+  if(q.kind==='choice'){
+    bubble.innerHTML=q.text;
+    optionsBox.innerHTML='';
+    q.options.forEach((opt,i)=>{
+      const btn=document.createElement('button');
+      btn.className='option-btn';
+      btn.dataset.idx=i;
+      btn.innerHTML=`<span class="opt-letter">${LETTERS[i]||i+1}</span><span>${opt}</span>`;
+      btn.addEventListener('click',()=>handleChoice(i));
+      optionsBox.appendChild(btn);
+    });
+    optionsBox.classList.add('show');
+    optionsBox.classList.remove('disabled');
+    answerBox.style.display='none';
+    keypad.style.display='none';
+  }else if(q.kind==='vertical'){
+    bubble.innerHTML=`<span class="instr">HITUNG CARA BERSUSUN!</span><br>Isi kotak jawabannya ya 💪`;
+    visual.innerHTML=verticalHTML(q.a,q.b,q.op,q.answer);
+    optionsBox.classList.remove('show');
+    answerBox.style.display='none';
+    keypad.style.display='grid';
+    keypad.classList.remove('disabled');
+    setupVerticalInput();
+  }else{
+    bubble.innerHTML=q.text;
+    optionsBox.classList.remove('show');
+    answerBox.style.display='flex';
+    keypad.style.display='grid';
+    keypad.classList.remove('disabled');
+    updateAnswerDisplay();
+  }
+}
+
+function handleChoice(idx){
+  if(state.locked) return;
+  const q=state.questions[state.index];
+  const ok = (idx === q.answer);
+  state.locked=true;
+  const optionsBox=$('optionsBox');
+  optionsBox.classList.add('disabled');
+  optionsBox.querySelectorAll('.option-btn').forEach(b=>{
+    const bi=parseInt(b.dataset.idx,10);
+    if(bi===q.answer) b.classList.add('correct');
+    else if(bi===idx) b.classList.add('wrong');
+  });
+  if(ok){ state.score++; stats.correct++; playSound(true); }
+  else { stats.wrong++; playSound(false); }
+  saveStats();
+
+  const total=state.questions.length;
+  const isLast = state.index===total-1;
+  const fb=$('feedback');
+  const correctText=q.options[q.answer];
+  fb.innerHTML=`
+    <div class="fb-pow ${ok?'fb-ok':'fb-no'}">
+      <i class="fa-solid ${ok?'fa-circle-check':'fa-circle-xmark'}"></i>
+      ${ok?'BENAR!':'SALAH'}
+    </div>
+    ${ok?'':`<div class="fb-note">Jawaban yang benar: <b>${correctText}</b></div>`}
+    <br><button class="btn next-btn ${ok?'btn-green':'btn-blue'}" id="nextBtn">
+      ${isLast?'<i class="fa-solid fa-flag-checkered"></i> LIHAT HASIL'
+              :'LANJUT <i class="fa-solid fa-arrow-right"></i>'}
+    </button>`;
+  $('nextBtn').addEventListener('click',nextQuestion);
+  updateHUD();
+}
+
+function updateHUD(){
+  const total=state.questions.length;
+  $('hudProgress').textContent=(state.index+1)+'/'+total;
+  $('hudScore').textContent=state.score;
+  const badge=$('hudBadge');
+  if(state.sessionKind==='ulangan'){
+    const m=state.ulanganMapel;
+    const label = m==='mtk' ? 'MTK' : m==='bi' ? 'B.INDO' : 'B.ING';
+    badge.innerHTML=`<i class="fa-solid fa-graduation-cap"></i> ${label} KELAS ${state.ulanganKelas}`;
+    let color = 'var(--blue)';
+    if(m==='mtk') color = state.ulanganKelas==='1-3'?'var(--blue)':'var(--purple)';
+    else if(m==='bi') color = state.ulanganKelas==='1-3'?'var(--green)':'var(--orange)';
+    else color = state.ulanganKelas==='1-3'?'var(--pink)':'var(--red)';
+    badge.style.background=color;
+    badge.style.color='#fff';
+  }else{
+    const types = state.mapel==='mtk' ? MTK_TYPES : state.mapel==='bi' ? BI_TYPES : ENG_TYPES;
+    const t=types.find(x=>x.id===state.type);
+    const lv=LEVEL_INFO[state.level];
+    badge.innerHTML=`<i class="fa-solid ${t.icon}"></i> ${lv.label}`;
+    badge.style.background=lv.color;
+    badge.style.color='#fff';
+  }
+  $('progressFill').style.width=((state.index+1)/total*100)+'%';
+}
+
+function updateAnswerDisplay(){
+  const box=$('answerBox');
+  box.textContent = state.input==='' ? '?' : state.input;
+  box.style.color = state.input==='' ? '#bbb' : '#141414';
+}
+
+function handleKey(k){
+  if(state.locked) return;
+  const q=state.questions[state.index];
+  if(q.kind==='choice') return;
+  if(q.kind==='vertical'){
+    if(k==='del') backspaceBox();
+    else if(k==='ok') checkAnswer();
+    else typeDigit(k);
+    return;
+  }
+  if(k==='del'){ state.input=state.input.slice(0,-1); }
+  else if(k==='ok'){ checkAnswer(); return; }
+  else{
+    if(state.input.length>=7) return;
+    if(state.input==='0') state.input='';
+    state.input+=k;
+  }
+  updateAnswerDisplay();
+}
+
+$('keypad').addEventListener('click',e=>{
+  const btn=e.target.closest('.key');
+  if(!btn) return;
+  handleKey(btn.dataset.k);
+});
+
+document.addEventListener('keydown',e=>{
+  if(!$('screen-quiz').classList.contains('active')) return;
+  const q=state.questions[state.index];
+  if(q && q.kind==='choice'){
+    if(e.key>='1'&&e.key<='4'){
+      const idx=parseInt(e.key,10)-1;
+      if(idx<q.options.length) handleChoice(idx);
+    }
+    return;
+  }
+  if(e.key>='0'&&e.key<='9') handleKey(e.key);
+  else if(e.key==='Backspace'){ e.preventDefault(); handleKey('del'); }
+  else if(e.key==='Enter'){ handleKey('ok'); }
+});
+
+function checkAnswer(){
+  if(state.locked) return;
+  const q=state.questions[state.index];
+  if(q.kind==='choice') return;
+  let val;
+  if(q.kind==='vertical'){
+    val=getVerticalAnswer();
+    if(val===null){
+      const vc=$('vcalc');
+      if(vc){
+        vc.classList.remove('shake');
+        void vc.offsetWidth;
+        vc.classList.add('shake');
+      }
+      return;
+    }
+  }else{
+    if(state.input===''){
+      const box=$('answerBox');
+      box.classList.remove('shake');
+      void box.offsetWidth;
+      box.classList.add('shake');
+      return;
+    }
+    val=parseInt(state.input,10);
+  }
+  const ok=(val===q.answer);
+  state.locked=true;
+  $('keypad').classList.add('disabled');
+  if(ok){ state.score++; stats.correct++; playSound(true); }
+  else { stats.wrong++; playSound(false); }
+  saveStats();
+
+  const total=state.questions.length;
+  const isLast = state.index===total-1;
+  const fb=$('feedback');
+  fb.innerHTML=`
+    <div class="fb-pow ${ok?'fb-ok':'fb-no'}">
+      <i class="fa-solid ${ok?'fa-circle-check':'fa-circle-xmark'}"></i>
+      ${ok?'BENAR!':'SALAH'}
+    </div>
+    ${ok?'':`<div class="fb-note">Jawaban yang benar: <b>${q.answer}</b></div>`}
+    <br><button class="btn next-btn ${ok?'btn-green':'btn-blue'}" id="nextBtn">
+      ${isLast?'<i class="fa-solid fa-flag-checkered"></i> LIHAT HASIL'
+              :'LANJUT <i class="fa-solid fa-arrow-right"></i>'}
+    </button>`;
+  $('nextBtn').addEventListener('click',nextQuestion);
+  updateHUD();
+}
+
+function nextQuestion(){
+  state.index++;
+  if(state.index>=state.questions.length){ showResult(); return; }
+  renderQuestion();
+  updateHUD();
+}
+
+function showResult(){
+  const total=state.questions.length;
+  const s=state.score;
+  const ratio=s/total;
+  const stars = ratio>=0.9?3 : ratio>=0.7?2 : ratio>=0.5?1 : 0;
+  $('resultStars').innerHTML =
+    [0,1,2].map(i=>`<span class="${i<stars?'':'off'}">⭐</span>`).join('');
+  $('resultScoreWrap').innerHTML = `Skor kamu: <b id="resultScore">${s}</b> / ${total}`;
+
+  let title,msg;
+  if(ratio>=1){ title='SEMPURNA!'; msg='Kamu jenius! 🏆💥'; }
+  else if(ratio>=0.8){ title='LUAR BIASA!'; msg='Hampir sempurna, pertahankan ya! 🔥'; }
+  else if(ratio>=0.6){ title='BAGUS!'; msg='Sedikit lagi jadi juara! 👍'; }
+  else if(ratio>=0.4){ title='SEMANGAT!'; msg='Ayo berlatih lagi, kamu pasti bisa! 💪'; }
+  else { title='JANGAN MENYERAH!'; msg='Coba lagi ya, pelan-pelan pasti bisa! 🌟'; }
+
+  $('resultTitle').textContent=title;
+  $('resultMsg').textContent=msg;
+
+  stats.played++;
+  saveStats();
+  renderStats();
+
+  showScreen('result');
+}
+
+$('startBtn').addEventListener('click',startPractice);
+$('againBtn').addEventListener('click',()=>{
+  if(state.sessionKind==='ulangan') startUlangan(state.ulanganKelas,state.ulanganMapel);
+  else startPractice();
+});
+$('menuBtn').addEventListener('click',()=>{
+  if(state.sessionKind==='ulangan') showScreen('home');
+  else showScreen('soal');
+});
+
+const exitModal=$('exitModal');
+function openExitModal(){ exitModal.classList.add('show'); }
+function closeExitModal(){ exitModal.classList.remove('show'); }
+$('closeQuizBtn').addEventListener('click',openExitModal);
+$('modalCancelBtn').addEventListener('click',closeExitModal);
+$('modalConfirmBtn').addEventListener('click',()=>{
+  closeExitModal();
+  showScreen(state.sessionKind==='ulangan'?'home':'soal');
+});
+exitModal.addEventListener('click',e=>{
+  if(e.target===exitModal) closeExitModal();
+});
+
+const heartModal=$('heartModal');
+$('heartModalOk').addEventListener('click',()=>heartModal.classList.remove('show'));
+heartModal.addEventListener('click',e=>{
+  if(e.target===heartModal) heartModal.classList.remove('show');
+});
+
+const logoutModal=$('logoutModal');
+$('logoutBtn').addEventListener('click',()=>logoutModal.classList.add('show'));
+$('logoutCancel').addEventListener('click',()=>logoutModal.classList.remove('show'));
+$('logoutConfirm').addEventListener('click',()=>{
+  logoutModal.classList.remove('show');
+  clearSession();
+  currentUser=null;
+  hearts = HEART_MAX;
+  lastRegenTime = Date.now();
+  checkinData = { day:1, lastDate:null };
+  stats = { played:0, correct:0, wrong:0 };
+  renderHeartDisplay();
+  $('loginNama').value='';
+  $('daftarNama').value='';
+  $('daftarKelas').value='';
+  $('daftarSekolah').value='';
+  clearErrors();
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.auth-tab[data-mode="login"]').classList.add('active');
+  $('formLogin').style.display='block';
+  $('formDaftar').style.display='none';
+  showScreen('login');
+  showToast('Kamu telah keluar dari akun.');
+});
+logoutModal.addEventListener('click',e=>{
+  if(e.target===logoutModal) logoutModal.classList.remove('show');
+});
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(exitModal.classList.contains('show')) closeExitModal();
+    if(heartModal.classList.contains('show')) heartModal.classList.remove('show');
+    if(logoutModal.classList.contains('show')) logoutModal.classList.remove('show');
+  }
+});
+
+document.querySelectorAll('.field input, .field select').forEach(el=>{
+  el.addEventListener('input',()=>{
+    el.classList.remove('error');
+    const hint=el.parentElement.querySelector('.field-hint');
+    if(hint) hint.classList.remove('show');
+  });
+});
+
+function initAuth(){
+  const sessionKey=getSession();
+  if(sessionKey){
+    const users=getUsers();
+    const u=users[sessionKey];
+    if(u){
+      currentUser={ nama:u.nama, kelas:u.kelas, sekolah:u.sekolah };
+      updateProfilUI();
+      loadUserData();
+      renderTypeGrid();
+      showScreen('home');
+      return;
+    }else{
+      clearSession();
+    }
+  }
+  currentUser=null;
+  renderHeartDisplay();
+  showScreen('login');
+}
+
+$('levelNote').textContent=LEVEL_INFO.mudah.note;
+renderTypeGrid();
+initAuth();
+setInterval(tickHearts,1000);
+</script>
+</body>
+</html>
